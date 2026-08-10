@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand colors from /public/brand/logo/kitapix-logo.svg */
+  --background: #f4f8fa;
+  --foreground: #202e55;
+  --surface: #ffffff;
+  --surface-muted: #eaf3f6;
+  --border: #d5e3e9;
+  --muted: #5a6a7d;
+  --primary: #202e55;
+  --primary-hover: #2a3c6b;
+  --primary-foreground: #ffffff;
+  --accent: #6cc6db;
+  --accent-soft: #e7f6fa;
+  --accent-foreground: #202e55;
+  --success: #1f7a4d;
+  --warning: #b45309;
+  --danger: #b42318;
+
+  --radius-small: 0.375rem;
+  --radius-medium: 0.5rem;
+  --radius-large: 0.75rem;
+
+  --font-sans: var(--font-plus-jakarta);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --radius-small: 0.375rem;
+  --radius-medium: 0.5rem;
+  --radius-large: 0.75rem;
+  --font-sans: var(--font-plus-jakarta);
+}
+
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-display {
+    font-size: clamp(2.25rem, 4vw, 3rem);
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .text-h1 {
+    font-size: clamp(1.875rem, 3vw, 2.25rem);
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .text-h2 {
+    font-size: clamp(1.5rem, 2.4vw, 1.75rem);
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .text-h3 {
+    font-size: 1.25rem;
+    line-height: 1.35;
+    font-weight: 600;
+  }
+
+  .text-body-large {
+    font-size: 1.125rem;
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  .text-body {
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .text-body-small {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  .text-caption {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+}

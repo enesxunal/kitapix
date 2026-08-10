@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600" role="img" aria-label="Zamanın Kıyısında kitap kapağı">
+  <rect width="400" height="600" fill="#202e55"/>
+  <path d="M0 360 C80 300 140 420 220 360 C300 300 340 380 400 320 L400 600 L0 600 Z" fill="#2a3c6b"/>
+  <path d="M0 420 C100 380 180 470 260 410 C320 370 360 430 400 400 L400 600 L0 600 Z" fill="#6cc6db" opacity="0.35"/>
+  <circle cx="300" cy="140" r="28" fill="#6cc6db" opacity="0.85"/>
+  <rect x="48" y="80" width="140" height="8" rx="4" fill="#e7f6fa"/>
+  <rect x="48" y="105" width="90" height="6" rx="3" fill="#6cc6db" opacity="0.7"/>
+</svg>

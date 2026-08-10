@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600" role="img" aria-label="Günlük Hayat İçin Felsefe kitap kapağı">
+  <rect width="400" height="600" fill="#2a3c6b"/>
+  <rect x="40" y="40" width="320" height="520" fill="none" stroke="#6cc6db" stroke-width="1.5" opacity="0.45"/>
+  <circle cx="140" cy="220" r="55" fill="#6cc6db" opacity="0.35"/>
+  <rect x="200" y="180" width="110" height="110" fill="#e7f6fa" opacity="0.18"/>
+  <path d="M90 380 L200 300 L310 380" fill="none" stroke="#e7f6fa" stroke-width="2" opacity="0.7"/>
+  <rect x="90" y="450" width="170" height="8" rx="4" fill="#e7f6fa"/>
+  <rect x="90" y="475" width="110" height="6" rx="3" fill="#6cc6db"/>
+</svg>

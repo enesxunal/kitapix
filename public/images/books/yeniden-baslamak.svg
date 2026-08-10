@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600" role="img" aria-label="Yeniden Başlamak kitap kapağı">
+  <defs>
+    <linearGradient id="g" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#6cc6db"/>
+      <stop offset="100%" stop-color="#202e55"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#g)"/>
+  <rect x="70" y="420" width="70" height="70" fill="#ffffff" opacity="0.2"/>
+  <rect x="150" y="350" width="70" height="140" fill="#ffffff" opacity="0.28"/>
+  <rect x="230" y="260" width="70" height="230" fill="#ffffff" opacity="0.38"/>
+  <rect x="70" y="90" width="180" height="8" rx="4" fill="#ffffff"/>
+  <rect x="70" y="115" width="120" height="6" rx="3" fill="#e7f6fa" opacity="0.8"/>
+</svg>

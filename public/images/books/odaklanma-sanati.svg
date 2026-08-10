@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600" role="img" aria-label="Odaklanma Sanatı kitap kapağı">
+  <rect width="400" height="600" fill="#e7f6fa"/>
+  <rect x="0" y="0" width="400" height="220" fill="#202e55"/>
+  <circle cx="200" cy="300" r="110" fill="none" stroke="#202e55" stroke-width="3"/>
+  <circle cx="200" cy="300" r="70" fill="none" stroke="#6cc6db" stroke-width="3"/>
+  <circle cx="200" cy="300" r="28" fill="#202e55"/>
+  <rect x="90" y="480" width="220" height="8" rx="4" fill="#202e55"/>
+  <rect x="130" y="505" width="140" height="6" rx="3" fill="#6cc6db"/>
+</svg>

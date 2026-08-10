@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600" role="img" aria-label="Kitap kapa1 yer tutucu">
+  <rect width="400" height="600" fill="#EEF1F5"/>
+  <rect x="28" y="28" width="344" height="544" rx="8" fill="#FFFFFF" stroke="#DDE3EA" stroke-width="2"/>
+  <rect x="80" y="220" width="240" height="10" rx="5" fill="#DDE3EA"/>
+  <rect x="110" y="250" width="180" height="8" rx="4" fill="#E6EBF1"/>
+  <rect x="130" y="278" width="140" height="8" rx="4" fill="#E6EBF1"/>
+</svg>

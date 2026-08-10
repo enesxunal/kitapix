@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600" role="img" aria-label="Küçük Adımlar kitap kapağı">
+  <rect width="400" height="600" fill="#eaf3f6"/>
+  <rect x="0" y="0" width="18" height="600" fill="#202e55"/>
+  <rect x="80" y="420" width="60" height="20" rx="4" fill="#6cc6db"/>
+  <rect x="160" y="370" width="60" height="20" rx="4" fill="#2a3c6b"/>
+  <rect x="240" y="320" width="60" height="20" rx="4" fill="#202e55"/>
+  <rect x="80" y="120" width="180" height="10" rx="5" fill="#202e55"/>
+  <rect x="80" y="150" width="120" height="7" rx="3.5" fill="#6cc6db"/>
+  <circle cx="300" cy="180" r="40" fill="#6cc6db" opacity="0.35"/>
+</svg>
