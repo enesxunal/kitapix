@@ -5,7 +5,7 @@ import { SectionHeader } from "@/components/home/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { mockBooks } from "@/lib/mock-books";
+import { getFeaturedBooks } from "@/lib/data/books";
 
 const categories = [
   "Tümü",
@@ -98,9 +98,9 @@ const aiArticles = [
   },
 ] as const;
 
-const editorPicks = mockBooks.slice(0, 4);
+export default async function EditorialPage() {
+  const editorPicks = await getFeaturedBooks(4);
 
-export default function EditorialPage() {
   return (
     <div className="bg-background py-8 md:py-12">
       <Container>

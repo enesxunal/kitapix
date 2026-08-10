@@ -2,7 +2,7 @@ import Link from "next/link";
 import { BookGrid } from "@/components/books/BookGrid";
 import { Container } from "@/components/layout/Container";
 import { Input } from "@/components/ui/Input";
-import { mockBooks } from "@/lib/mock-books";
+import { getBooks } from "@/lib/data/books";
 
 const categories = [
   "Roman",
@@ -21,8 +21,9 @@ const publishers = [
   "Yeni Nesil Yayınları",
 ] as const;
 
-export default function BooksListingPage() {
-  const bookCount = mockBooks.length;
+export default async function BooksListingPage() {
+  const books = await getBooks();
+  const bookCount = books.length;
 
   return (
     <div className="bg-background py-8 md:py-12">
@@ -156,7 +157,7 @@ export default function BooksListingPage() {
             </div>
 
             <div className="mt-6">
-              <BookGrid books={mockBooks} />
+              <BookGrid books={books} />
             </div>
           </section>
         </div>

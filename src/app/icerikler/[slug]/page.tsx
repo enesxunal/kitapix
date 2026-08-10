@@ -5,7 +5,7 @@ import { BookGrid } from "@/components/books/BookGrid";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { mockBooks } from "@/lib/mock-books";
+import { getFeaturedBooks } from "@/lib/data/books";
 import {
   demoArticles,
   getDemoArticle,
@@ -38,7 +38,7 @@ export default async function ArticleDetailPage({
     notFound();
   }
 
-  const relatedBooks = mockBooks.slice(0, 4);
+  const relatedBooks = await getFeaturedBooks(4);
   const similarArticles = relatedArticleCards
     .filter((item) => item.slug !== article.slug)
     .slice(0, 3);

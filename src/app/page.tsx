@@ -5,13 +5,7 @@ import { SectionHeader } from "@/components/home/SectionHeader";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Container } from "@/components/layout/Container";
-import { mockBooks } from "@/lib/mock-books";
-
-const forYouBooks = mockBooks.slice(0, 5);
-const editorBooks = [mockBooks[1], mockBooks[5], mockBooks[2], mockBooks[6]];
-const bestsellerBooks = [mockBooks[2], mockBooks[6], mockBooks[3], mockBooks[0]];
-const newReleaseBooks = [mockBooks[3], mockBooks[7], mockBooks[4], mockBooks[5]];
-const heroCovers = [mockBooks[0], mockBooks[2], mockBooks[1]];
+import { getHomeBookSections } from "@/lib/data/books";
 
 const categories = [
   "Roman",
@@ -39,7 +33,9 @@ const editorialItems = [
   },
 ] as const;
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { forYou, featured, popular, newest, hero } = await getHomeBookSections();
+
   return (
     <div>
       <section className="relative overflow-hidden border-b border-border bg-surface">
@@ -82,7 +78,7 @@ export default function HomePage() {
 
           <div className="relative mx-auto flex h-[280px] w-full max-w-md items-end justify-center sm:h-[340px] lg:mx-0 lg:max-w-none" aria-hidden="true">
             <div className="absolute inset-x-8 bottom-0 h-24 rounded-full bg-accent/20 blur-2xl" />
-            {heroCovers.map((book, index) => {
+            {hero.map((book, index) => {
               const offsets = [
                 "-translate-x-[38%] -rotate-8",
                 "translate-x-0 rotate-0 z-10",
@@ -124,7 +120,7 @@ export default function HomePage() {
             linkLabel="Tümünü Gör"
           />
           <div className="mt-6">
-            <BookGrid books={forYouBooks} />
+            <BookGrid books={forYou} />
           </div>
         </section>
 
@@ -137,7 +133,7 @@ export default function HomePage() {
             linkLabel="Tümünü Gör"
           />
           <div className="mt-6">
-            <BookGrid books={editorBooks} className="xl:grid-cols-4" />
+            <BookGrid books={featured} className="xl:grid-cols-4" />
           </div>
         </section>
 
@@ -175,7 +171,7 @@ export default function HomePage() {
             linkLabel="Tümünü Gör"
           />
           <div className="mt-6">
-            <BookGrid books={bestsellerBooks} className="xl:grid-cols-4" />
+            <BookGrid books={popular} className="xl:grid-cols-4" />
           </div>
         </section>
 
@@ -203,7 +199,7 @@ export default function HomePage() {
             linkLabel="Tümünü Gör"
           />
           <div className="mt-6">
-            <BookGrid books={newReleaseBooks} className="xl:grid-cols-4" />
+            <BookGrid books={newest} className="xl:grid-cols-4" />
           </div>
         </section>
 

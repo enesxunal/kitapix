@@ -1,16 +1,12 @@
 import Link from "next/link";
 import { AccountNav } from "@/components/account/AccountNav";
+import { FavoriteRemoveButton } from "@/components/account/FavoriteRemoveButton";
 import { BookCard } from "@/components/books/BookCard";
-import { BookGrid } from "@/components/books/BookGrid";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
-import { mockBooks } from "@/lib/mock-books";
-
-const favoriteBooks = mockBooks.slice(0, 6);
-const suggestedBooks = mockBooks.slice(6, 8);
-const favoriteCount = favoriteBooks.length;
-
-const showEmptyState = false;
+import { requireUser } from "@/lib/auth/require-user";
+import { getFavoriteBooks } from "@/lib/data/favorites";
+import { getPopularBooks } from "@/lib/data/books";
 
 function FavoritesEmptyState() {
   return (
@@ -38,7 +34,17 @@ function FavoritesEmptyState() {
   );
 }
 
-export default function FavoritesPage() {
+export default async function FavoritesPage() {
+  await requireUser();
+
+  const favoriteBooks = await getFavoriteBooks();
+  const favoriteCount = favoriteBooks.length;
+  const favoriteIds = new Set(favoriteBooks.map((book) => book.id));
+  const popularBooks = await getPopularBooks(8);
+  const suggestedBooks = popularBooks
+    .filter((book) => !favoriteIds.has(book.id))
+    .slice(0, 2);
+
   return (
     <div className="bg-background py-8 md:py-12">
       <Container>
@@ -81,7 +87,7 @@ export default function FavoritesPage() {
           </aside>
 
           <div className="min-w-0 space-y-10">
-            {showEmptyState ? (
+            {favoriteCount === 0 ? (
               <FavoritesEmptyState />
             ) : (
               <section aria-labelledby="favorites-grid-heading">
@@ -93,42 +99,39 @@ export default function FavoritesPage() {
                   <p className="text-body-small font-medium text-muted">
                     {favoriteCount} favori kitap
                   </p>
-                  <label className="flex items-center gap-2 text-body-small text-muted">
-                    <span className="sr-only">Sıralama</span>
-                    <select
-                      className="rounded-medium border border-border bg-surface px-3 py-2 text-body-small font-medium text-foreground"
-                      defaultValue="recent"
-                      aria-label="Favorileri sırala"
-                    >
-                      <option value="recent">En Son Eklenen</option>
-                      <option value="price-asc">Fiyat: Artan</option>
-                      <option value="price-desc">Fiyat: Azalan</option>
-                      <option value="rating">En Yüksek Puan</option>
-                    </select>
-                  </label>
                 </div>
 
-                <div className="mt-6">
-                  <BookGrid books={favoriteBooks} />
-                </div>
+                <ul className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-6 xl:gap-y-10">
+                  {favoriteBooks.map((book) => (
+                    <li key={book.id}>
+                      <BookCard book={book} />
+                      <FavoriteRemoveButton
+                        bookId={book.id}
+                        bookTitle={book.title}
+                      />
+                    </li>
+                  ))}
+                </ul>
               </section>
             )}
 
-            <section aria-labelledby="favorites-suggestions-heading">
-              <h2
-                id="favorites-suggestions-heading"
-                className="text-h2 text-foreground"
-              >
-                Bunlar da ilgini çekebilir
-              </h2>
-              <ul className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:max-w-md">
-                {suggestedBooks.map((book) => (
-                  <li key={book.id}>
-                    <BookCard book={book} />
-                  </li>
-                ))}
-              </ul>
-            </section>
+            {suggestedBooks.length > 0 ? (
+              <section aria-labelledby="favorites-suggestions-heading">
+                <h2
+                  id="favorites-suggestions-heading"
+                  className="text-h2 text-foreground"
+                >
+                  Bunlar da ilgini çekebilir
+                </h2>
+                <ul className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:max-w-md">
+                  {suggestedBooks.map((book) => (
+                    <li key={book.id}>
+                      <BookCard book={book} />
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
           </div>
         </div>
       </Container>

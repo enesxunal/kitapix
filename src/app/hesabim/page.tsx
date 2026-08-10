@@ -1,14 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { AccountNav } from "@/components/account/AccountNav";
 import {
   OrderStatusBadge,
   type OrderStatus,
 } from "@/components/account/OrderStatusBadge";
+import { LogoutButton } from "@/components/auth/LogoutButton";
 import { BookGrid } from "@/components/books/BookGrid";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { mockBooks } from "@/lib/mock-books";
+import { createClient } from "@/lib/supabase/server";
 
 type OrderItem = {
   book: (typeof mockBooks)[number];
@@ -20,12 +23,6 @@ type DemoOrder = {
   date: string;
   status: OrderStatus;
   items: OrderItem[];
-};
-
-const profile = {
-  name: "Deniz Kaya",
-  email: "deniz@kitapix.com",
-  membership: "Kitapix Üyesi",
 };
 
 const summaryCards = [
@@ -106,7 +103,27 @@ function CoverPreview({ items }: { items: OrderItem[] }) {
   );
 }
 
-export default function AccountPage() {
+export default async function AccountPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/giris");
+  }
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("display_name, first_name, last_name")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  const displayName =
+    profile?.display_name?.trim() ||
+    [profile?.first_name, profile?.last_name].filter(Boolean).join(" ").trim() ||
+    "Kitapix Üyesi";
+
   return (
     <div className="bg-background py-8 md:py-12">
       <Container>
@@ -147,16 +164,19 @@ export default function AccountPage() {
                     id="profile-heading"
                     className="text-h3 text-foreground"
                   >
-                    {profile.name}
+                    {displayName}
                   </h2>
-                  <p className="mt-2 text-body text-muted">{profile.email}</p>
+                  <p className="mt-2 text-body text-muted">{user.email}</p>
                   <p className="mt-1 text-body-small text-muted">
-                    {profile.membership}
+                    Kitapix Üyesi
                   </p>
                 </div>
-                <Button type="button" variant="secondary" size="sm">
-                  Profili Düzenle
-                </Button>
+                <div className="flex flex-wrap gap-2">
+                  <Button type="button" variant="secondary" size="sm">
+                    Profili Düzenle
+                  </Button>
+                  <LogoutButton />
+                </div>
               </div>
             </section>
 

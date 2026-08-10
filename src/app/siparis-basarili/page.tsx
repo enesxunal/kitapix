@@ -1,50 +1,50 @@
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
-import { mockBooks } from "@/lib/mock-books";
+import { requireUser } from "@/lib/auth/require-user";
+import {
+  formatOrderDate,
+  formatPaymentStatus,
+  getOrderById,
+  groupOrderItemsByPublisher,
+  mapOrderStatus,
+} from "@/lib/data/orders";
 
-type OrderItem = {
-  book: (typeof mockBooks)[number];
-  quantity: number;
-};
-
-const orderItems: OrderItem[] = [
-  { book: mockBooks[0], quantity: 1 },
-  { book: mockBooks[5], quantity: 1 },
-  { book: mockBooks[2], quantity: 1 },
-];
-
-const shipments = [
-  {
-    label: "Gönderi 1 — Kitapix Yayınları",
-    items: [orderItems[0], orderItems[1]],
-  },
-  {
-    label: "Gönderi 2 — Mavi Sayfa",
-    items: [orderItems[2]],
-  },
-];
-
-const orderMeta = {
-  number: "KPX-2026-001842",
-  date: "10 Ağustos 2026",
-  paymentStatus: "Ödeme Alındı",
+type OrderSuccessPageProps = {
+  searchParams: Promise<{ order?: string }>;
 };
 
 function formatPrice(value: number) {
   return new Intl.NumberFormat("tr-TR", {
     style: "currency",
     currency: "TRY",
-    maximumFractionDigits: 0,
+    maximumFractionDigits: 2,
   }).format(value);
 }
 
-export default function OrderSuccessPage() {
-  const total = orderItems.reduce(
-    (sum, item) => sum + item.book.price * item.quantity,
-    0,
-  );
+export default async function OrderSuccessPage({
+  searchParams,
+}: OrderSuccessPageProps) {
+  await requireUser();
+
+  const params = await searchParams;
+  const orderRef = params.order?.trim();
+
+  if (!orderRef) {
+    redirect("/hesabim/siparisler");
+  }
+
+  const order = await getOrderById(orderRef);
+
+  if (!order) {
+    redirect("/hesabim/siparisler");
+  }
+
+  const publisherGroups = groupOrderItemsByPublisher(order.items);
+  const statusLabel = mapOrderStatus(order.status);
+  const paymentLabel = formatPaymentStatus(order.paymentStatus);
 
   return (
     <div className="bg-background py-8 md:py-12">
@@ -86,25 +86,31 @@ export default function OrderSuccessPage() {
               <div className="flex items-start justify-between gap-4">
                 <dt className="text-muted">Sipariş No</dt>
                 <dd className="text-right font-medium text-foreground">
-                  {orderMeta.number}
+                  {order.orderNumber}
                 </dd>
               </div>
               <div className="flex items-start justify-between gap-4">
                 <dt className="text-muted">Sipariş Tarihi</dt>
                 <dd className="text-right font-medium text-foreground">
-                  {orderMeta.date}
+                  {formatOrderDate(order.createdAt)}
+                </dd>
+              </div>
+              <div className="flex items-start justify-between gap-4">
+                <dt className="text-muted">Durum</dt>
+                <dd className="text-right font-medium text-foreground">
+                  {statusLabel}
                 </dd>
               </div>
               <div className="flex items-start justify-between gap-4">
                 <dt className="text-muted">Toplam</dt>
                 <dd className="text-right font-semibold text-foreground">
-                  {formatPrice(total)}
+                  {formatPrice(order.grandTotal)}
                 </dd>
               </div>
               <div className="flex items-start justify-between gap-4 border-t border-border pt-4">
                 <dt className="text-muted">Ödeme Durumu</dt>
-                <dd className="text-right font-medium text-success">
-                  {orderMeta.paymentStatus}
+                <dd className="text-right font-medium text-foreground">
+                  {paymentLabel}
                 </dd>
               </div>
             </dl>
@@ -118,9 +124,23 @@ export default function OrderSuccessPage() {
               Teslimat
             </h2>
             <p className="mt-3 text-body text-foreground">
-              Tahmini teslimat: 2–4 iş günü
+              {order.shippingMethodLabel}
             </p>
-            <p className="mt-2 text-body-small text-muted">
+            <div className="mt-4 space-y-1 text-body-small text-foreground">
+              <p className="font-medium">
+                {order.shippingFirstName} {order.shippingLastName}
+              </p>
+              <p>{order.shippingAddressLine}</p>
+              <p>
+                {[order.shippingDistrict, order.shippingCity]
+                  .filter(Boolean)
+                  .join(" / ")}
+              </p>
+              {order.shippingPhone ? (
+                <p className="pt-2 text-muted">Telefon: {order.shippingPhone}</p>
+              ) : null}
+            </div>
+            <p className="mt-4 text-body-small text-muted">
               Siparişindeki ürünler farklı yayınevlerinden gönderiliyorsa birden
               fazla kargo oluşabilir.
             </p>
@@ -138,35 +158,34 @@ export default function OrderSuccessPage() {
             </h2>
 
             <div className="mt-6 space-y-8">
-              {shipments.map((shipment) => (
-                <div key={shipment.label}>
+              {publisherGroups.map((group, index) => (
+                <div key={group.publisher}>
                   <h3 className="text-body-small font-semibold text-muted">
-                    {shipment.label}
+                    Gönderi {index + 1} — {group.publisher}
                   </h3>
                   <ul className="mt-4 space-y-4">
-                    {shipment.items.map(({ book, quantity }) => (
-                      <li key={book.id} className="flex gap-3">
+                    {group.items.map((item) => (
+                      <li key={item.id} className="flex gap-3">
                         <div className="relative aspect-[2/3] w-14 shrink-0 overflow-hidden rounded-medium border border-border bg-surface-muted">
-                          <Image
-                            src={book.cover}
-                            alt={`${book.title} kitap kapağı`}
-                            fill
-                            sizes="56px"
-                            className="object-cover"
-                          />
+                          {item.cover ? (
+                            <Image
+                              src={item.cover}
+                              alt={`${item.title} kitap kapağı`}
+                              fill
+                              sizes="56px"
+                              className="object-cover"
+                            />
+                          ) : null}
                         </div>
                         <div className="min-w-0 flex-1">
                           <p className="text-body-small font-medium text-foreground">
-                            {book.title}
+                            {item.title}
                           </p>
                           <p className="mt-1 text-caption text-muted">
-                            {book.author}
-                          </p>
-                          <p className="mt-1 text-caption text-muted">
-                            Adet: {quantity}
+                            Adet: {item.quantity}
                           </p>
                           <p className="mt-1 text-body-small font-semibold text-foreground">
-                            {formatPrice(book.price)}
+                            {formatPrice(item.lineTotal)}
                           </p>
                         </div>
                       </li>
@@ -175,11 +194,34 @@ export default function OrderSuccessPage() {
                 </div>
               ))}
             </div>
+
+            <dl className="mt-6 space-y-3 border-t border-border pt-5 text-body-small">
+              <div className="flex items-center justify-between gap-4">
+                <dt className="text-muted">Ara Toplam</dt>
+                <dd className="font-medium text-foreground">
+                  {formatPrice(order.subtotal)}
+                </dd>
+              </div>
+              <div className="flex items-center justify-between gap-4">
+                <dt className="text-muted">Kargo</dt>
+                <dd className="font-medium text-foreground">
+                  {order.shippingTotal === 0
+                    ? "Ücretsiz"
+                    : formatPrice(order.shippingTotal)}
+                </dd>
+              </div>
+              <div className="flex items-center justify-between gap-4 border-t border-border pt-3">
+                <dt className="font-semibold text-foreground">Toplam</dt>
+                <dd className="font-semibold text-foreground">
+                  {formatPrice(order.grandTotal)}
+                </dd>
+              </div>
+            </dl>
           </section>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
             <Link
-              href="/hesabim/siparis/KPX-2026-001842"
+              href={`/hesabim/siparis/${order.id}`}
               className="w-full sm:w-auto"
             >
               <Button type="button" size="lg" className="w-full">

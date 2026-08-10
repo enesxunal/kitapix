@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Input } from "@/components/ui/Input";
+import { getCartCount } from "@/lib/data/cart";
+import { createClient } from "@/lib/supabase/server";
 import { Container } from "./Container";
 
 const navItems = [
@@ -11,13 +13,51 @@ const navItems = [
   { label: "Çok Satanlar" },
 ] as const;
 
-const utilityItems = [
-  { label: "Favoriler", symbol: "♡", href: "/hesabim/favoriler" },
-  { label: "Hesabım", symbol: "○", href: "/hesabim" },
-  { label: "Sepet", symbol: "◫", href: "/sepet" },
-] as const;
+export async function Header() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-export function Header() {
+  let accountLabel = "Giriş";
+  let accountHref = "/giris";
+  let accountTitle = "Giriş";
+  let cartCount = 0;
+
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("display_name, first_name, last_name")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    const displayName =
+      profile?.display_name?.trim() ||
+      [profile?.first_name, profile?.last_name].filter(Boolean).join(" ").trim() ||
+      null;
+
+    accountLabel = "Hesabım";
+    accountHref = "/hesabim";
+    accountTitle = displayName ? `${displayName} — Hesabım` : "Hesabım";
+    cartCount = await getCartCount();
+  }
+
+  const utilityItems = [
+    { label: "Favoriler", symbol: "♡", href: "/hesabim/favoriler" },
+    {
+      label: accountLabel,
+      symbol: "○",
+      href: accountHref,
+      title: accountTitle,
+    },
+    {
+      label: "Sepet",
+      symbol: "◫",
+      href: "/sepet",
+      count: cartCount > 0 ? cartCount : undefined,
+    },
+  ] as const;
+
   return (
     <header className="border-b border-border bg-surface">
       <Container className="flex items-center gap-4 py-4 sm:gap-6">
@@ -56,20 +96,33 @@ export function Header() {
                 <span className="hidden sm:inline">AI Asistan</span>
               </Link>
             </li>
-            {utilityItems.map((item) => (
-              <li key={item.label}>
-                <Link
-                  href={item.href}
-                  aria-label={item.label}
-                  title={item.label}
-                  className="inline-flex size-10 items-center justify-center rounded-medium text-foreground transition-colors hover:bg-accent-soft hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
-                >
-                  <span aria-hidden="true" className="text-body">
-                    {item.symbol}
-                  </span>
-                </Link>
-              </li>
-            ))}
+            {utilityItems.map((item) => {
+              const label =
+                "title" in item && item.title ? item.title : item.label;
+              const count = "count" in item ? item.count : undefined;
+              const ariaLabel =
+                count !== undefined ? `${label} (${count})` : label;
+
+              return (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    aria-label={ariaLabel}
+                    title={ariaLabel}
+                    className="relative inline-flex size-10 items-center justify-center rounded-medium text-foreground transition-colors hover:bg-accent-soft hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
+                  >
+                    <span aria-hidden="true" className="text-body">
+                      {item.symbol}
+                    </span>
+                    {count !== undefined ? (
+                      <span className="absolute -right-0.5 -top-0.5 inline-flex min-w-4 items-center justify-center rounded-small bg-primary px-1 text-[10px] font-semibold leading-4 text-primary-foreground">
+                        {count > 99 ? "99+" : count}
+                      </span>
+                    ) : null}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </Container>

@@ -1,181 +1,44 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  OrderStatusBadge,
-  type OrderStatus,
-} from "@/components/account/OrderStatusBadge";
+import { OrderStatusBadge } from "@/components/account/OrderStatusBadge";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
-import { mockBooks } from "@/lib/mock-books";
-
-type OrderItem = {
-  book: (typeof mockBooks)[number];
-  quantity: number;
-};
-
-type Shipment = {
-  id: string;
-  publisher: string;
-  status: OrderStatus;
-  estimatedDelivery: string;
-  items: OrderItem[];
-  carrier?: string;
-  trackingNumber?: string;
-};
-
-type DemoOrderDetail = {
-  id: string;
-  date: string;
-  status: OrderStatus;
-  shipments: Shipment[];
-  summary: {
-    subtotal: number;
-    discount: number;
-    shipping: number;
-    total: number;
-  };
-};
+import { requireUser } from "@/lib/auth/require-user";
+import {
+  formatOrderDate,
+  formatPaymentStatus,
+  getOrderById,
+  groupOrderItemsByPublisher,
+  mapOrderStatus,
+  type OrderItemSnapshot,
+  type OrderPublisherGroup,
+} from "@/lib/data/orders";
 
 type OrderDetailPageProps = {
   params: Promise<{ orderId: string }>;
-};
-
-const address = {
-  name: "Deniz Kaya",
-  line1: "Bağdat Cad. No: 120 D: 8",
-  line2: "Kadıköy / İstanbul",
-  phone: "+90 555 000 00 00",
-};
-
-const payment = {
-  method: "Kredi Kartı",
-  cardMask: "**** **** **** 4242",
-  status: "Ödeme Alındı",
-};
-
-const demoOrders: Record<string, DemoOrderDetail> = {
-  "KPX-2026-001842": {
-    id: "KPX-2026-001842",
-    date: "10 Ağustos 2026",
-    status: "Hazırlanıyor",
-    shipments: [
-      {
-        id: "shipment-1",
-        publisher: "Kitapix Yayınları",
-        status: "Hazırlanıyor",
-        estimatedDelivery: "12–14 Ağustos",
-        items: [
-          { book: mockBooks[0], quantity: 1 },
-          { book: mockBooks[5], quantity: 1 },
-        ],
-      },
-      {
-        id: "shipment-2",
-        publisher: "Mavi Sayfa",
-        status: "Kargoya Verildi",
-        estimatedDelivery: "11–12 Ağustos",
-        carrier: "Örnek Kargo",
-        trackingNumber: "KPX872194",
-        items: [{ book: mockBooks[2], quantity: 1 }],
-      },
-    ],
-    summary: {
-      subtotal: 887,
-      discount: 0,
-      shipping: 0,
-      total: 887,
-    },
-  },
-  "KPX-2026-001127": {
-    id: "KPX-2026-001127",
-    date: "28 Temmuz 2026",
-    status: "Kargoda",
-    shipments: [
-      {
-        id: "shipment-1",
-        publisher: "Kuzey Kitap",
-        status: "Kargoya Verildi",
-        estimatedDelivery: "30 Temmuz – 1 Ağustos",
-        carrier: "Örnek Kargo",
-        trackingNumber: "KPX651203",
-        items: [{ book: mockBooks[1], quantity: 1 }],
-      },
-      {
-        id: "shipment-2",
-        publisher: "Yeni Nesil Yayınları",
-        status: "Kargoya Verildi",
-        estimatedDelivery: "30 Temmuz – 1 Ağustos",
-        carrier: "Örnek Kargo",
-        trackingNumber: "KPX651218",
-        items: [{ book: mockBooks[3], quantity: 1 }],
-      },
-    ],
-    summary: {
-      subtotal: 594,
-      discount: 0,
-      shipping: 0,
-      total: 594,
-    },
-  },
-  "KPX-2026-000914": {
-    id: "KPX-2026-000914",
-    date: "12 Haziran 2026",
-    status: "Teslim Edildi",
-    shipments: [
-      {
-        id: "shipment-1",
-        publisher: "Kuzey Kitap",
-        status: "Teslim Edildi",
-        estimatedDelivery: "14–16 Haziran",
-        items: [{ book: mockBooks[4], quantity: 1 }],
-      },
-      {
-        id: "shipment-2",
-        publisher: "Mavi Sayfa",
-        status: "Teslim Edildi",
-        estimatedDelivery: "14–16 Haziran",
-        items: [{ book: mockBooks[6], quantity: 1 }],
-      },
-      {
-        id: "shipment-3",
-        publisher: "Yeni Nesil Yayınları",
-        status: "Teslim Edildi",
-        estimatedDelivery: "14–16 Haziran",
-        items: [{ book: mockBooks[7], quantity: 1 }],
-      },
-    ],
-    summary: {
-      subtotal: 777,
-      discount: 0,
-      shipping: 0,
-      total: 777,
-    },
-  },
 };
 
 function formatPrice(value: number) {
   return new Intl.NumberFormat("tr-TR", {
     style: "currency",
     currency: "TRY",
-    maximumFractionDigits: 0,
+    maximumFractionDigits: 2,
   }).format(value);
 }
 
 function ShipmentCard({
-  shipment,
+  group,
   index,
+  orderStatus,
 }: {
-  shipment: Shipment;
+  group: OrderPublisherGroup;
   index: number;
+  orderStatus: ReturnType<typeof mapOrderStatus>;
 }) {
-  const showTracking =
-    shipment.status === "Kargoya Verildi" &&
-    Boolean(shipment.carrier && shipment.trackingNumber);
-
   return (
     <article
-      aria-labelledby={`shipment-${shipment.id}-heading`}
+      aria-labelledby={`shipment-${index}-heading`}
       className="rounded-large border border-border bg-surface p-5 sm:p-6"
     >
       <header className="flex flex-col gap-4 border-b border-border pb-5 sm:flex-row sm:items-start sm:justify-between">
@@ -184,83 +47,90 @@ function ShipmentCard({
             Gönderi {index + 1}
           </p>
           <h2
-            id={`shipment-${shipment.id}-heading`}
+            id={`shipment-${index}-heading`}
             className="text-h3 text-foreground"
           >
-            {shipment.publisher}
+            {group.publisher}
           </h2>
-          <OrderStatusBadge status={shipment.status} />
+          <OrderStatusBadge status={orderStatus} />
         </div>
-        <p className="text-body-small text-muted sm:text-right">
-          Tahmini teslimat
-          <span className="mt-1 block font-medium text-foreground">
-            {shipment.estimatedDelivery}
-          </span>
-        </p>
       </header>
 
       <ul className="mt-5 space-y-4">
-        {shipment.items.map(({ book, quantity }) => (
-          <li key={book.id} className="flex gap-3">
-            <Link
-              href={`/kitap/${book.slug}`}
-              className="relative aspect-[2/3] w-14 shrink-0 overflow-hidden rounded-medium border border-border bg-surface-muted sm:w-16"
-            >
-              <Image
-                src={book.cover}
-                alt={`${book.title} kitap kapağı`}
-                fill
-                sizes="64px"
-                className="object-cover"
-              />
-            </Link>
-            <div className="min-w-0 flex-1">
-              <Link
-                href={`/kitap/${book.slug}`}
-                className="text-body-small font-medium text-foreground hover:underline"
-              >
-                {book.title}
-              </Link>
-              <p className="mt-1 text-caption text-muted">{book.author}</p>
-              <p className="mt-1 text-caption text-muted">Adet: {quantity}</p>
-              <p className="mt-1 text-body-small font-semibold text-foreground">
-                {formatPrice(book.price)}
-              </p>
-            </div>
-          </li>
-        ))}
-      </ul>
+        {group.items.map((item: OrderItemSnapshot) => {
+          const href = item.slug ? `/kitap/${item.slug}` : null;
 
-      {showTracking ? (
-        <div className="mt-5 rounded-medium border border-border bg-surface-muted/60 p-4">
-          <dl className="space-y-2 text-body-small">
-            <div className="flex flex-wrap gap-x-2">
-              <dt className="text-muted">Kargo firması</dt>
-              <dd className="font-medium text-foreground">{shipment.carrier}</dd>
-            </div>
-            <div className="flex flex-wrap gap-x-2">
-              <dt className="text-muted">Takip no</dt>
-              <dd className="font-medium text-foreground">
-                {shipment.trackingNumber}
-              </dd>
-            </div>
-          </dl>
-          <Button type="button" variant="secondary" size="sm" className="mt-4">
-            Kargoyu Takip Et
-          </Button>
-        </div>
-      ) : null}
+          return (
+            <li key={item.id} className="flex gap-3">
+              {href ? (
+                <Link
+                  href={href}
+                  className="relative aspect-[2/3] w-14 shrink-0 overflow-hidden rounded-medium border border-border bg-surface-muted sm:w-16"
+                >
+                  {item.cover ? (
+                    <Image
+                      src={item.cover}
+                      alt={`${item.title} kitap kapağı`}
+                      fill
+                      sizes="64px"
+                      className="object-cover"
+                    />
+                  ) : null}
+                </Link>
+              ) : (
+                <div className="relative aspect-[2/3] w-14 shrink-0 overflow-hidden rounded-medium border border-border bg-surface-muted sm:w-16">
+                  {item.cover ? (
+                    <Image
+                      src={item.cover}
+                      alt={`${item.title} kitap kapağı`}
+                      fill
+                      sizes="64px"
+                      className="object-cover"
+                    />
+                  ) : null}
+                </div>
+              )}
+              <div className="min-w-0 flex-1">
+                {href ? (
+                  <Link
+                    href={href}
+                    className="text-body-small font-medium text-foreground hover:underline"
+                  >
+                    {item.title}
+                  </Link>
+                ) : (
+                  <p className="text-body-small font-medium text-foreground">
+                    {item.title}
+                  </p>
+                )}
+                <p className="mt-1 text-caption text-muted">
+                  Adet: {item.quantity}
+                </p>
+                <p className="mt-1 text-body-small font-semibold text-foreground">
+                  {formatPrice(item.lineTotal)}
+                </p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
     </article>
   );
 }
 
 export default async function OrderDetailPage({ params }: OrderDetailPageProps) {
+  await requireUser();
+
   const { orderId } = await params;
-  const order = demoOrders[orderId];
+  const order = await getOrderById(orderId);
 
   if (!order) {
     notFound();
   }
+
+  const status = mapOrderStatus(order.status);
+  const publisherGroups = groupOrderItemsByPublisher(order.items);
+  const paymentLabel = formatPaymentStatus(order.paymentStatus);
 
   return (
     <div className="bg-background py-8 md:py-12">
@@ -286,7 +156,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
             </li>
             <li aria-hidden="true">/</li>
             <li className="text-foreground" aria-current="page">
-              {order.id}
+              {order.orderNumber}
             </li>
           </ol>
         </nav>
@@ -296,16 +166,18 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
           <dl className="mt-4 space-y-2 text-body-small">
             <div className="flex flex-wrap gap-x-2">
               <dt className="sr-only">Sipariş numarası</dt>
-              <dd className="font-semibold text-foreground">{order.id}</dd>
+              <dd className="font-semibold text-foreground">
+                {order.orderNumber}
+              </dd>
             </div>
             <div className="flex flex-wrap gap-x-2">
               <dt className="sr-only">Sipariş tarihi</dt>
-              <dd className="text-muted">{order.date}</dd>
+              <dd className="text-muted">{formatOrderDate(order.createdAt)}</dd>
             </div>
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
               <dt className="sr-only">Sipariş durumu</dt>
               <dd>
-                <OrderStatusBadge status={order.status} />
+                <OrderStatusBadge status={status} />
               </dd>
             </div>
           </dl>
@@ -322,11 +194,12 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
                 halinde yola çıkabilir.
               </p>
               <div className="space-y-4">
-                {order.shipments.map((shipment, index) => (
+                {publisherGroups.map((group, index) => (
                   <ShipmentCard
-                    key={shipment.id}
-                    shipment={shipment}
+                    key={group.publisher}
+                    group={group}
                     index={index}
+                    orderStatus={status}
                   />
                 ))}
               </div>
@@ -342,11 +215,24 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
                 Teslimat Adresi
               </h2>
               <div className="mt-4 space-y-1 text-body-small text-foreground">
-                <p className="font-medium">{address.name}</p>
-                <p>{address.line1}</p>
-                <p>{address.line2}</p>
-                <p className="pt-2 text-muted">Telefon: {address.phone}</p>
+                <p className="font-medium">
+                  {order.shippingFirstName} {order.shippingLastName}
+                </p>
+                <p>{order.shippingAddressLine}</p>
+                <p>
+                  {[order.shippingDistrict, order.shippingCity]
+                    .filter(Boolean)
+                    .join(" / ")}
+                </p>
+                {order.shippingPhone ? (
+                  <p className="pt-2 text-muted">
+                    Telefon: {order.shippingPhone}
+                  </p>
+                ) : null}
               </div>
+              <p className="mt-4 text-body-small text-muted">
+                {order.shippingMethodLabel}
+              </p>
             </section>
 
             <section
@@ -360,16 +246,14 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
                 <div>
                   <dt className="sr-only">Ödeme yöntemi</dt>
                   <dd className="font-medium text-foreground">
-                    {payment.method}
+                    {order.paymentMethod === "payment_pending"
+                      ? "Ödeme entegrasyonu bekleniyor"
+                      : (order.paymentMethod ?? "Belirtilmedi")}
                   </dd>
                 </div>
                 <div>
-                  <dt className="sr-only">Kart</dt>
-                  <dd className="text-muted">{payment.cardMask}</dd>
-                </div>
-                <div>
                   <dt className="sr-only">Ödeme durumu</dt>
-                  <dd className="font-medium text-success">{payment.status}</dd>
+                  <dd className="font-medium text-foreground">{paymentLabel}</dd>
                 </div>
               </dl>
             </section>
@@ -388,49 +272,32 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
                 <div className="flex items-center justify-between gap-4">
                   <dt className="text-muted">Ara Toplam</dt>
                   <dd className="font-medium text-foreground">
-                    {formatPrice(order.summary.subtotal)}
+                    {formatPrice(order.subtotal)}
                   </dd>
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <dt className="text-muted">İndirim</dt>
                   <dd className="font-medium text-foreground">
-                    {order.summary.discount > 0
-                      ? `−${formatPrice(order.summary.discount)}`
+                    {order.discountTotal > 0
+                      ? `−${formatPrice(order.discountTotal)}`
                       : formatPrice(0)}
                   </dd>
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <dt className="text-muted">Kargo</dt>
                   <dd className="font-medium text-foreground">
-                    {order.summary.shipping === 0
+                    {order.shippingTotal === 0
                       ? "Ücretsiz"
-                      : formatPrice(order.summary.shipping)}
+                      : formatPrice(order.shippingTotal)}
                   </dd>
                 </div>
                 <div className="flex items-center justify-between gap-4 border-t border-border pt-3">
                   <dt className="font-semibold text-foreground">Toplam</dt>
                   <dd className="font-semibold text-foreground">
-                    {formatPrice(order.summary.total)}
+                    {formatPrice(order.grandTotal)}
                   </dd>
                 </div>
               </dl>
-            </section>
-
-            <section
-              aria-labelledby="invoice-heading"
-              className="rounded-large border border-border bg-surface p-5"
-            >
-              <h2 id="invoice-heading" className="text-h3 text-foreground">
-                Fatura
-              </h2>
-              <Button
-                type="button"
-                variant="secondary"
-                size="sm"
-                className="mt-4"
-              >
-                Faturayı Görüntüle
-              </Button>
             </section>
 
             <section

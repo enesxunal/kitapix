@@ -3,7 +3,8 @@ import Link from "next/link";
 import { BrandMark } from "@/components/brand/BrandLogo";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
-import { mockBooks } from "@/lib/mock-books";
+import { getBooks } from "@/lib/data/books";
+import type { Book } from "@/types/book";
 
 const quickPrompts = [
   "Sürükleyici bir roman",
@@ -23,27 +24,11 @@ const refinements = [
   "Başka öneriler göster",
 ] as const;
 
-const recommendations = [
-  {
-    book: mockBooks[1],
-    reason:
-      "Akıcı anlatımı ve kısa bölümleri nedeniyle tekrar okuma alışkanlığı kazanmak isteyenler için uygun.",
-  },
-  {
-    book: mockBooks[4],
-    reason:
-      "Hızlı ilerleyen kurgusuyla ağır olmadan sürükleyici bir okuma deneyimi sunar.",
-  },
-  {
-    book: mockBooks[3],
-    reason:
-      "Sade dili ve umut veren tonuyla uzun bir aradan sonra okumaya dönmek için iyi bir başlangıç.",
-  },
-  {
-    book: mockBooks[0],
-    reason:
-      "Sakin temposu ve net anlatımıyla yormadan ilerlemek isteyen okurlar için önerilir.",
-  },
+const recommendationReasons = [
+  "Akıcı anlatımı ve kısa bölümleri nedeniyle tekrar okuma alışkanlığı kazanmak isteyenler için uygun.",
+  "Hızlı ilerleyen kurgusuyla ağır olmadan sürükleyici bir okuma deneyimi sunar.",
+  "Sade dili ve umut veren tonuyla uzun bir aradan sonra okumaya dönmek için iyi bir başlangıç.",
+  "Sakin temposu ve net anlatımıyla yormadan ilerlemek isteyen okurlar için önerilir.",
 ] as const;
 
 function formatPrice(value: number) {
@@ -54,7 +39,17 @@ function formatPrice(value: number) {
   }).format(value);
 }
 
-export default function AiAssistantPage() {
+function buildRecommendations(books: Book[]) {
+  return books.slice(0, recommendationReasons.length).map((book, index) => ({
+    book,
+    reason: recommendationReasons[index],
+  }));
+}
+
+export default async function AiAssistantPage() {
+  const books = await getBooks();
+  const recommendations = buildRecommendations(books);
+
   return (
     <div className="bg-background py-8 md:py-12">
       <Container>

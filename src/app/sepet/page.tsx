@@ -1,24 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CartItemControls } from "@/components/cart/CartItemControls";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { mockBooks } from "@/lib/mock-books";
+import { requireUser } from "@/lib/auth/require-user";
+import { getCart, type CartItem } from "@/lib/data/cart";
 
 const FORMAT_LABEL = "Basılı Kitap";
-
-type CartItem = {
-  book: (typeof mockBooks)[number];
-  quantity: number;
-};
-
-const cartItems: CartItem[] = [
-  { book: mockBooks[0], quantity: 1 },
-  { book: mockBooks[5], quantity: 1 },
-  { book: mockBooks[2], quantity: 1 },
-];
-
-const isEmpty = false;
 
 function formatPrice(value: number) {
   return new Intl.NumberFormat("tr-TR", {
@@ -32,29 +21,27 @@ function groupByPublisher(items: CartItem[]) {
   const groups: { publisher: string; items: CartItem[] }[] = [];
 
   for (const item of items) {
-    const existing = groups.find(
-      (group) => group.publisher === item.book.publisher,
-    );
+    const publisher = item.book.publisher || "Diğer";
+    const existing = groups.find((group) => group.publisher === publisher);
 
     if (existing) {
       existing.items.push(item);
     } else {
-      groups.push({ publisher: item.book.publisher, items: [item] });
+      groups.push({ publisher, items: [item] });
     }
   }
 
   return groups;
 }
 
-export default function CartPage() {
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.book.price * item.quantity,
-    0,
-  );
-  const originalTotal = cartItems.reduce((sum, item) => {
-    const unit = item.book.originalPrice ?? item.book.price;
-    return sum + unit * item.quantity;
-  }, 0);
+export default async function CartPage() {
+  await requireUser();
+  const cart = await getCart();
+  const cartItems = cart?.items ?? [];
+  const isEmpty = cartItems.length === 0;
+
+  const subtotal = cart?.subtotal ?? 0;
+  const originalTotal = cart?.originalTotal ?? 0;
   const discount = originalTotal - subtotal;
   const shipping = 0;
   const total = subtotal + shipping;
@@ -134,13 +121,21 @@ export default function CartPage() {
                                 href={`/kitap/${book.slug}`}
                                 className="relative mx-auto aspect-[2/3] w-28 shrink-0 overflow-hidden rounded-medium border border-border bg-surface sm:mx-0 sm:w-24"
                               >
-                                <Image
-                                  src={book.cover}
-                                  alt={`${book.title} kitap kapağı`}
-                                  fill
-                                  sizes="112px"
-                                  className="object-cover"
-                                />
+                                {book.cover ? (
+                                  <Image
+                                    src={book.cover}
+                                    alt={`${book.title} kitap kapağı`}
+                                    fill
+                                    sizes="112px"
+                                    className="object-cover"
+                                  />
+                                ) : (
+                                  <div className="flex h-full w-full items-center justify-center bg-surface-muted">
+                                    <span className="text-caption text-muted">
+                                      Kapak yok
+                                    </span>
+                                  </div>
+                                )}
                               </Link>
 
                               <div className="min-w-0 flex-1 space-y-3">
@@ -162,72 +157,20 @@ export default function CartPage() {
                                   </p>
                                 </div>
 
-                                <div
-                                  className="inline-flex items-center gap-0 rounded-medium border border-border bg-surface"
-                                  role="group"
-                                  aria-label={`${book.title} adet`}
-                                >
-                                  <Button
-                                    type="button"
-                                    variant="ghost"
-                                    size="sm"
-                                    disabled
-                                    className="h-9 w-9 rounded-none px-0"
-                                    aria-label="Adeti azalt"
-                                  >
-                                    −
-                                  </Button>
-                                  <span
-                                    className="min-w-8 text-center text-body-small font-medium text-foreground"
-                                    aria-live="polite"
-                                  >
-                                    {quantity}
-                                  </span>
-                                  <Button
-                                    type="button"
-                                    variant="ghost"
-                                    size="sm"
-                                    disabled
-                                    className="h-9 w-9 rounded-none px-0"
-                                    aria-label="Adeti artır"
-                                  >
-                                    +
-                                  </Button>
-                                </div>
-
-                                <div className="flex flex-wrap items-center gap-3">
-                                  <Button
-                                    type="button"
-                                    variant="ghost"
-                                    size="sm"
-                                    className="px-0 text-muted hover:bg-transparent hover:text-foreground"
-                                  >
-                                    Sil
-                                  </Button>
-                                  <span
-                                    className="text-caption text-border"
-                                    aria-hidden="true"
-                                  >
-                                    |
-                                  </span>
-                                  <Button
-                                    type="button"
-                                    variant="ghost"
-                                    size="sm"
-                                    className="px-0 text-muted hover:bg-transparent hover:text-foreground"
-                                  >
-                                    Favorilere Taşı
-                                  </Button>
-                                </div>
+                                <CartItemControls
+                                  bookId={book.id}
+                                  bookTitle={book.title}
+                                  quantity={quantity}
+                                />
                               </div>
 
                               <div className="shrink-0 text-left sm:text-right">
                                 <p className="text-body font-semibold text-foreground">
-                                  {formatPrice(book.price)}
+                                  {formatPrice(book.price * quantity)}
                                 </p>
                                 {hasDiscount ? (
                                   <p className="mt-1 text-caption text-muted line-through">
-                                    {formatPrice(book.originalPrice!)}
+                                    {formatPrice(book.originalPrice! * quantity)}
                                   </p>
                                 ) : null}
                               </div>
@@ -283,6 +226,7 @@ export default function CartPage() {
                     label="Kupon kodu"
                     placeholder="Kupon kodu"
                     autoComplete="off"
+                    disabled
                     className="bg-surface"
                   />
                   <Button
@@ -290,6 +234,7 @@ export default function CartPage() {
                     variant="secondary"
                     size="md"
                     className="shrink-0"
+                    disabled
                   >
                     Uygula
                   </Button>

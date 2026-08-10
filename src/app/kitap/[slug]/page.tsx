@@ -2,9 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BookGrid } from "@/components/books/BookGrid";
+import { FavoriteToggleButton } from "@/components/books/FavoriteToggleButton";
+import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { Container } from "@/components/layout/Container";
-import { Button } from "@/components/ui/Button";
-import { mockBooks } from "@/lib/mock-books";
+import { getBookBySlug, getRelatedBooks } from "@/lib/data/books";
+import { isBookFavorited } from "@/lib/data/favorites";
+import { createClient } from "@/lib/supabase/server";
 
 const PLACEHOLDER_DESCRIPTION =
   "Kitap hakkında detaylı açıklama ilerleyen adımda içerik verisiyle birlikte eklenecek.";
@@ -23,17 +26,25 @@ function formatPrice(value: number) {
 
 export default async function BookDetailPage({ params }: BookDetailPageProps) {
   const { slug } = await params;
-  const book = mockBooks.find((item) => item.slug === slug);
+  const book = await getBookBySlug(slug);
 
   if (!book) {
     notFound();
   }
 
+  const description = book.description?.trim() || PLACEHOLDER_DESCRIPTION;
   const hasDiscount =
     typeof book.originalPrice === "number" && book.originalPrice > book.price;
   const discountAmount = hasDiscount ? book.originalPrice! - book.price : 0;
-  const similarBooks = mockBooks.filter((item) => item.id !== book.id).slice(0, 4);
+  const similarBooks = await getRelatedBooks(book.id);
   const showCover = Boolean(book.cover);
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isAuthenticated = Boolean(user);
+  const isFavorited = isAuthenticated ? await isBookFavorited(book.id) : false;
 
   return (
     <div className="bg-background py-8 md:py-12">
@@ -103,7 +114,7 @@ export default async function BookDetailPage({ params }: BookDetailPageProps) {
               </p>
             ) : null}
 
-            <p className="max-w-xl text-body text-muted">{PLACEHOLDER_DESCRIPTION}</p>
+            <p className="max-w-xl text-body text-muted">{description}</p>
           </div>
 
           <aside className="h-fit rounded-large border border-border bg-surface p-5 lg:sticky lg:top-6">
@@ -133,12 +144,15 @@ export default async function BookDetailPage({ params }: BookDetailPageProps) {
             </fieldset>
 
             <div className="mt-5 flex flex-col gap-2">
-              <Button type="button" size="lg" className="w-full">
-                Sepete Ekle
-              </Button>
-              <Button type="button" variant="ghost" size="md" className="w-full">
-                Favoriye Ekle
-              </Button>
+              <AddToCartButton
+                bookId={book.id}
+                isAuthenticated={isAuthenticated}
+              />
+              <FavoriteToggleButton
+                bookId={book.id}
+                isFavorited={isFavorited}
+                isAuthenticated={isAuthenticated}
+              />
             </div>
 
             <ul className="mt-6 space-y-2 border-t border-border pt-5 text-body-small text-muted">
@@ -154,7 +168,7 @@ export default async function BookDetailPage({ params }: BookDetailPageProps) {
             <h2 id="section-kitap-hakkinda" className="text-h2 text-foreground">
               Kitap Hakkında
             </h2>
-            <p className="mt-4 text-body text-muted">{PLACEHOLDER_DESCRIPTION}</p>
+            <p className="mt-4 text-body text-muted">{description}</p>
           </section>
 
           <section aria-labelledby="section-kitap-bilgileri" className="max-w-3xl">
