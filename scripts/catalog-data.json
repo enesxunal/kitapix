@@ -1,0 +1,1061 @@
+{
+  "populated_at": "2026-08-11",
+  "price_note": "Reference retail prices from Kitapyurdu / publisher sites on 2026-08-11; may change.",
+  "categories": [
+    {
+      "id": "33333333-3333-4333-8333-333333333301",
+      "name": "Kişisel Gelişim",
+      "slug": "kisisel-gelisim",
+      "sort_order": 10
+    },
+    {
+      "id": "33333333-3333-4333-8333-333333333305",
+      "name": "Dünya Edebiyatı",
+      "slug": "dunya-edebiyati",
+      "sort_order": 20
+    },
+    {
+      "id": "33333333-3333-4333-8333-333333333306",
+      "name": "Türk Edebiyatı",
+      "slug": "turk-edebiyati",
+      "sort_order": 30
+    },
+    {
+      "id": "33333333-3333-4333-8333-333333333303",
+      "name": "Felsefe",
+      "slug": "felsefe",
+      "sort_order": 40
+    },
+    {
+      "id": "33333333-3333-4333-8333-333333333307",
+      "name": "Bilim",
+      "slug": "bilim",
+      "sort_order": 50
+    },
+    {
+      "id": "33333333-3333-4333-8333-333333333308",
+      "name": "Tarih",
+      "slug": "tarih",
+      "sort_order": 60
+    },
+    {
+      "id": "33333333-3333-4333-8333-333333333304",
+      "name": "Çocuk",
+      "slug": "cocuk",
+      "sort_order": 70
+    },
+    {
+      "id": "33333333-3333-4333-8333-333333333309",
+      "name": "Polisiye ve Fantastik",
+      "slug": "polisiye-ve-fantastik",
+      "sort_order": 80
+    }
+  ],
+  "publishers": [
+    {
+      "id": "55555555-5555-4555-8555-555555555501",
+      "name": "Can Yayınları",
+      "slug": "can-yayinlari"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555502",
+      "name": "Türkiye İş Bankası Kültür Yayınları",
+      "slug": "is-bankasi-kultur-yayinlari"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555503",
+      "name": "Yapı Kredi Yayınları",
+      "slug": "yapi-kredi-yayinlari"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555504",
+      "name": "Dergâh Yayınları",
+      "slug": "dergah-yayinlari"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555505",
+      "name": "İletişim Yayınları",
+      "slug": "iletisim-yayinlari"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555506",
+      "name": "Doğan Kitap",
+      "slug": "dogan-kitap"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555507",
+      "name": "Pegasus Yayınları",
+      "slug": "pegasus-yayinlari"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555508",
+      "name": "Okuyan Us Yayın",
+      "slug": "okuyan-us"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555509",
+      "name": "Varlık Yayınları",
+      "slug": "varlik-yayinlari"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555510",
+      "name": "Butik Yayıncılık",
+      "slug": "butik-yayincilik"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555511",
+      "name": "Kolektif Kitap",
+      "slug": "kolektif-kitap"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555512",
+      "name": "Alfa Yayınları",
+      "slug": "alfa-yayinlari"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555513",
+      "name": "Say Yayınları",
+      "slug": "say-yayinlari"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555514",
+      "name": "Kabalcı Yayıncılık",
+      "slug": "kabalci-yayincilik"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555515",
+      "name": "Kronik Kitap",
+      "slug": "kronik-kitap"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555516",
+      "name": "Altın Kitaplar",
+      "slug": "altin-kitaplar"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555517",
+      "name": "İthaki Yayınları",
+      "slug": "ithaki-yayinlari"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555518",
+      "name": "Domingo Yayınevi",
+      "slug": "domingo-yayinevi"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555519",
+      "name": "Kopernik Kitap",
+      "slug": "kopernik-kitap"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555520",
+      "name": "Buzdağı Yayınevi",
+      "slug": "buzdagi-yayinevi"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555521",
+      "name": "Timaş Yayınları",
+      "slug": "timas-yayinlari"
+    },
+    {
+      "id": "55555555-5555-4555-8555-555555555522",
+      "name": "Metis Yayınları",
+      "slug": "metis-yayinlari"
+    }
+  ],
+  "authors": [
+    {
+      "id": "66666666-6666-4666-8666-666666666601",
+      "name": "George Orwell",
+      "slug": "george-orwell"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666602",
+      "name": "Fyodor Dostoyevski",
+      "slug": "fyodor-dostoyevski"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666603",
+      "name": "Stefan Zweig",
+      "slug": "stefan-zweig"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666604",
+      "name": "Franz Kafka",
+      "slug": "franz-kafka"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666605",
+      "name": "Sabahattin Ali",
+      "slug": "sabahattin-ali"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666606",
+      "name": "Ahmet Hamdi Tanpınar",
+      "slug": "ahmet-hamdi-tanpinar"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666607",
+      "name": "Oğuz Atay",
+      "slug": "oguz-atay"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666608",
+      "name": "Zülfü Livaneli",
+      "slug": "zulfu-livaneli"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666609",
+      "name": "Yaşar Kemal",
+      "slug": "yasar-kemal"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666610",
+      "name": "James Clear",
+      "slug": "james-clear"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666611",
+      "name": "Viktor E. Frankl",
+      "slug": "viktor-e-frankl"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666612",
+      "name": "Mihaly Csikszentmihalyi",
+      "slug": "mihaly-csikszentmihalyi"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666613",
+      "name": "Daniel Kahneman",
+      "slug": "daniel-kahneman"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666614",
+      "name": "Don Miguel Ruiz",
+      "slug": "don-miguel-ruiz"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666615",
+      "name": "Platon",
+      "slug": "platon"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666616",
+      "name": "Alain de Botton",
+      "slug": "alain-de-botton"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666617",
+      "name": "Jean-Paul Sartre",
+      "slug": "jean-paul-sartre"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666618",
+      "name": "Marcus Aurelius",
+      "slug": "marcus-aurelius"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666619",
+      "name": "Yuval Noah Harari",
+      "slug": "yuval-noah-harari"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666620",
+      "name": "Stephen Hawking",
+      "slug": "stephen-hawking"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666621",
+      "name": "Carl Sagan",
+      "slug": "carl-sagan"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666622",
+      "name": "Antoine de Saint-Exupéry",
+      "slug": "antoine-de-saint-exupery"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666623",
+      "name": "José Mauro de Vasconcelos",
+      "slug": "jose-mauro-de-vasconcelos"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666624",
+      "name": "Michael Ende",
+      "slug": "michael-ende"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666625",
+      "name": "Ray Bradbury",
+      "slug": "ray-bradbury"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666626",
+      "name": "J. R. R. Tolkien",
+      "slug": "j-r-r-tolkien"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666627",
+      "name": "Agatha Christie",
+      "slug": "agatha-christie"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666628",
+      "name": "Jared Diamond",
+      "slug": "jared-diamond"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666629",
+      "name": "İlber Ortaylı",
+      "slug": "ilber-ortayli"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666630",
+      "name": "José Saramago",
+      "slug": "jose-saramago"
+    },
+    {
+      "id": "66666666-6666-4666-8666-666666666631",
+      "name": "Paulo Coelho",
+      "slug": "paulo-coelho"
+    }
+  ],
+  "books": [
+    {
+      "id": "77777777-7777-4777-8777-777777777701",
+      "title": "1984",
+      "slug": "1984",
+      "isbn": "9789750718533",
+      "publisher_slug": "can-yayinlari",
+      "author_slugs": [
+        "george-orwell"
+      ],
+      "category_slugs": [
+        "dunya-edebiyati"
+      ],
+      "page_count": 352,
+      "publication_date": "2019-01-01",
+      "price": 165,
+      "original_price": null,
+      "is_featured": true,
+      "badge": "Editör Seçimi",
+      "demo_rating": 4.8,
+      "demo_review_count": 42,
+      "short_description": "Totaliter bir dünyada gözetim, dil ve gerçeklik üzerindeki mücadeleyi anlatan klasik distopya.",
+      "description": "Winston Smith, Büyük Birader’in her yerde olduğu Okyanusya’da sıradan bir yaşam sürerken kendi düşüncelerini sorgulamaya başlar. Orwell’in romanı, propaganda, gözetim ve tarih yazımı üzerinden iktidarın bireyi nasıl biçimlendirdiğini gösterir.\n\nKitapix kataloğundaki Türkçe Can Yayınları baskısı, güncelliğini yitirmeyen bu uyarıyı sade ve güçlü bir anlatıyla okura sunar."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777702",
+      "title": "Hayvan Çiftliği",
+      "slug": "hayvan-ciftligi",
+      "isbn": "9789750719868",
+      "publisher_slug": "can-yayinlari",
+      "author_slugs": [
+        "george-orwell"
+      ],
+      "category_slugs": [
+        "dunya-edebiyati"
+      ],
+      "page_count": 152,
+      "publication_date": "2019-01-01",
+      "price": 95,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.7,
+      "demo_review_count": 38,
+      "short_description": "İktidar ve eşitlik vaatlerinin nasıl yozlaşabileceğini anlatan alegorik bir klasik.",
+      "description": "Manor Çiftliği’ndeki hayvanlar insanlara karşı ayaklanır; eşitlik vaadiyle kurulan düzen kısa sürede yeni bir hiyerarşiye dönüşür. Orwell, kısa ve keskin bir anlatıyla siyasal yozlaşmayı masalsı bir çerçevede gösterir.\n\nTürkçe Can Yayınları baskısı, okul ve yetişkin okuru için hâlâ en bilinen giriş eserlerinden biridir."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777703",
+      "title": "Suç ve Ceza",
+      "slug": "suc-ve-ceza",
+      "isbn": "9789754589023",
+      "publisher_slug": "is-bankasi-kultur-yayinlari",
+      "author_slugs": [
+        "fyodor-dostoyevski"
+      ],
+      "category_slugs": [
+        "dunya-edebiyati"
+      ],
+      "page_count": 687,
+      "publication_date": "2016-01-01",
+      "price": 195,
+      "original_price": null,
+      "is_featured": true,
+      "badge": null,
+      "demo_rating": 4.9,
+      "demo_review_count": 55,
+      "short_description": "Vicdan, suç ve ahlak üzerine Petersburg’da geçen Dostoyevski başyapıtı.",
+      "description": "Yoksul öğrenci Raskolnikov, bir cinayeti akılcılaştırarak işlemenin mümkün olup olmadığını sınar. Roman, suçun ardından gelen vicdan azabı ve toplumsal baskı altında bireyin çözülüşünü izler.\n\nİş Bankası Kültür Yayınları’nın Türkçe baskısı, dünya edebiyatının bu temel eserini geniş bir okur kitlesine taşır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777704",
+      "title": "Satranç",
+      "slug": "satranc",
+      "isbn": "9789750740280",
+      "publisher_slug": "can-yayinlari",
+      "author_slugs": [
+        "stefan-zweig"
+      ],
+      "category_slugs": [
+        "dunya-edebiyati"
+      ],
+      "page_count": 112,
+      "publication_date": "2019-01-01",
+      "price": 70,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.6,
+      "demo_review_count": 29,
+      "short_description": "Bir okyanus yolculuğunda satranç üzerinden gerilim ve zihin gücünü işleyen kısa roman.",
+      "description": "Zweig’in novellası, bir yolcu gemisinde rastlanan satranç ustası ile yalnızlıkta zihin jimnastiği yapan bir tutuklunun karşılaşmasını anlatır. Kısa hacmine rağmen gerilim, zeka ve travma temasını yoğun biçimde işler.\n\nCan Yayınları Türkçe baskısı, Zweig’e ilk adım için sık tercih edilen bir seçimdir."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777705",
+      "title": "Dönüşüm",
+      "slug": "donusum",
+      "isbn": "9789750738265",
+      "publisher_slug": "can-yayinlari",
+      "author_slugs": [
+        "franz-kafka"
+      ],
+      "category_slugs": [
+        "dunya-edebiyati"
+      ],
+      "page_count": 104,
+      "publication_date": "2019-01-01",
+      "price": 75,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.5,
+      "demo_review_count": 31,
+      "short_description": "Gregor Samsa’nın bir sabah böceğe dönüşmesiyle başlayan modern edebiyat klasiği.",
+      "description": "Kafka’nın kısa romanı, bir sabah kendini böcek olarak bulan Gregor Samsa’nın ailesi ve iş dünyasıyla ilişkisini anlatır. Yabancılaşma, aile baskısı ve insanlık onuru temaları sade bir üslupla işlenir.\n\nTürkçe Can Yayınları baskısı, modern edebiyatın bu ikonik metnini erişilebilir biçimde sunar."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777706",
+      "title": "Kürk Mantolu Madonna",
+      "slug": "kurk-mantolu-madonna",
+      "isbn": "9786058093508",
+      "publisher_slug": "kopernik-kitap",
+      "author_slugs": [
+        "sabahattin-ali"
+      ],
+      "category_slugs": [
+        "turk-edebiyati"
+      ],
+      "page_count": 160,
+      "publication_date": "2016-01-01",
+      "price": 70,
+      "original_price": null,
+      "is_featured": true,
+      "badge": "Çok Satan",
+      "demo_rating": 4.7,
+      "demo_review_count": 48,
+      "short_description": "Raif Efendi’nin sessiz aşkı üzerinden yalnızlık ve toplum baskısını anlatan Türk klasiği.",
+      "description": "Sabahattin Ali’nin romanı, Berlin’de tanıştığı Maria Puder’e duyduğu aşkı yıllarca içinde taşıyan Raif Efendi’nin hikâyesini anlatır. Sessizlik, utangaçlık ve toplumsal baskı altında ezilen bir yaşamın portresidir.\n\nYapı Kredi Yayınları baskısı, Türk edebiyatının en çok okunan eserlerinden biridir."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777707",
+      "title": "Saatleri Ayarlama Enstitüsü",
+      "slug": "saatleri-ayarlama-enstitusu",
+      "isbn": "9789759955083",
+      "publisher_slug": "dergah-yayinlari",
+      "author_slugs": [
+        "ahmet-hamdi-tanpinar"
+      ],
+      "category_slugs": [
+        "turk-edebiyati"
+      ],
+      "page_count": 396,
+      "publication_date": "2015-01-01",
+      "price": 180,
+      "original_price": null,
+      "is_featured": true,
+      "badge": "Editör Seçimi",
+      "demo_rating": 4.6,
+      "demo_review_count": 33,
+      "short_description": "Modernleşme, zaman ve bürokrasi üzerine Tanpınar’ın ironik başyapıtı.",
+      "description": "Hayri İrdal’ın anlatımıyla ilerleyen roman, Osmanlı’dan Cumhuriyet’e geçişte bireyin zamanla, kurumlarla ve modernlik hayaliyle kurduğu ilişkiyi ironik bir dille ele alır. Saatleri Ayarlama Enstitüsü, hem bir kurum hem de bir zihniyet alegorisidir.\n\nDergâh Yayınları baskısı, Tanpınar okurları için temel referanslardan biridir."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777708",
+      "title": "Tutunamayanlar",
+      "slug": "tutunamayanlar",
+      "isbn": "9789754700114",
+      "publisher_slug": "iletisim-yayinlari",
+      "author_slugs": [
+        "oguz-atay"
+      ],
+      "category_slugs": [
+        "turk-edebiyati"
+      ],
+      "page_count": 724,
+      "publication_date": "2014-01-01",
+      "price": 320,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.8,
+      "demo_review_count": 40,
+      "short_description": "Türk modern edebiyatının dönüm noktası sayılan, çok katmanlı bir roman.",
+      "description": "Oğuz Atay’ın Tutunamayanlar’ı, Turgut Özben’in arkadaşı Selim Işık’ın izini sürerken bireysel yalnızlık, dil oyunları ve toplumsal eleştiriyi iç içe örer. Deneysel biçimiyle Türk romanında bir kırılma anı kabul edilir.\n\nİletişim Yayınları baskısı, eserin standart Türkçe edisyonudur."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777709",
+      "title": "Serenad",
+      "slug": "serenad",
+      "isbn": "9786050901238",
+      "publisher_slug": "dogan-kitap",
+      "author_slugs": [
+        "zulfu-livaneli"
+      ],
+      "category_slugs": [
+        "turk-edebiyati"
+      ],
+      "page_count": 480,
+      "publication_date": "2011-01-01",
+      "price": 210,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.5,
+      "demo_review_count": 27,
+      "short_description": "İstanbul’da geçmişle yüzleşen bir aşk ve tarih romanı.",
+      "description": "Livaneli’nin Serenad’ı, bir profesör ile sekreteri Maya’nın ilişkisi üzerinden 20. yüzyıl Türkiye’sinin karanlık sayfalarına uzanır. Aşk, bellek ve tarihsel travma aynı anlatıda buluşur.\n\nDoğan Kitap baskısı, çağdaş Türk edebiyatında geniş okur bulan eserlerdendir."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777710",
+      "title": "İnce Memed 1",
+      "slug": "ince-memed-1",
+      "isbn": "9789750802942",
+      "publisher_slug": "yapi-kredi-yayinlari",
+      "author_slugs": [
+        "yasar-kemal"
+      ],
+      "category_slugs": [
+        "turk-edebiyati"
+      ],
+      "page_count": 436,
+      "publication_date": "2016-01-01",
+      "price": 145,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.7,
+      "demo_review_count": 36,
+      "short_description": "Çukurova’da eşkıyalık ve adalet arayışını anlatan Yaşar Kemal destanı.",
+      "description": "İnce Memed, ağalık düzenine karşı direnen bir gencin eşkıya oluşunu ve halkın adalet arayışını epik bir dil ile anlatır. Doğa, köy yaşamı ve toplumsal baskı romanın dokusunu oluşturur.\n\nYKY baskısı, dörtlemenin ilk cildinin yaygın Türkçe edisyonudur."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777711",
+      "title": "Atomik Alışkanlıklar",
+      "slug": "atomik-aliskanliklar",
+      "isbn": "9786052998380",
+      "publisher_slug": "pegasus-yayinlari",
+      "author_slugs": [
+        "james-clear"
+      ],
+      "category_slugs": [
+        "kisisel-gelisim"
+      ],
+      "page_count": 352,
+      "publication_date": "2020-05-08",
+      "price": 220,
+      "original_price": 399.98,
+      "is_featured": true,
+      "badge": "Çok Satan",
+      "demo_rating": 4.6,
+      "demo_review_count": 44,
+      "short_description": "Küçük alışkanlık değişiklikleriyle kalıcı sonuçlar üretmeye odaklı pratik bir rehber.",
+      "description": "James Clear, alışkanlıkların kimlik, ortam ve sistemlerle nasıl kurulduğunu adım adım açıklar. Kitap, büyük hedefler yerine küçük, tekrarlanabilir davranışlara odaklanır.\n\nPegasus Yayınları’nın Türkçe baskısı, kişisel gelişim raflarının en bilinen başlıklarındandır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777712",
+      "title": "İnsanın Anlam Arayışı",
+      "slug": "insanin-anlam-arayisi",
+      "isbn": "9786053751236",
+      "publisher_slug": "okuyan-us",
+      "author_slugs": [
+        "viktor-e-frankl"
+      ],
+      "category_slugs": [
+        "kisisel-gelisim"
+      ],
+      "page_count": 168,
+      "publication_date": "2019-01-01",
+      "price": 145,
+      "original_price": null,
+      "is_featured": true,
+      "badge": "Sana Uygun",
+      "demo_rating": 4.8,
+      "demo_review_count": 41,
+      "short_description": "Frankl’ın kamp deneyiminden yola çıkarak anlam ve dayanıklılığı tartıştığı klasik eser.",
+      "description": "Psikiyatrist Viktor Frankl, Nazi kamplarındaki deneyimini logoterapi yaklaşımıyla birleştirerek insanın en zor koşullarda bile anlam bulabileceğini savunur. Kitap hem anı hem düşünce metnidir.\n\nOkuyan Us Türkçe baskısı, psikoloji ve kişisel gelişim kesişiminde sık önerilen bir kaynaktır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777713",
+      "title": "Akış",
+      "slug": "akis",
+      "isbn": "9786056685873",
+      "publisher_slug": "buzdagi-yayinevi",
+      "author_slugs": [
+        "mihaly-csikszentmihalyi"
+      ],
+      "category_slugs": [
+        "kisisel-gelisim"
+      ],
+      "page_count": 392,
+      "publication_date": "2017-01-01",
+      "price": 210,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.4,
+      "demo_review_count": 22,
+      "short_description": "Yoğun odak ve doyum hali olan “akış” kavramını açıklayan psikoloji klasiği.",
+      "description": "Csikszentmihalyi, insanların en yüksek doyumu yaşadığı “akış” hallerini araştırmalarıyla açıklar. Beceri ve zorluk dengesi, dikkat ve mutluluk ilişkisi kitabın merkezindedir.\n\nTürkçe Okuyan Us baskısı, kavramın Türkiye’deki bilinen referansıdır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777714",
+      "title": "Düşünme, Hızlı ve Yavaş",
+      "slug": "dusunme-hizli-ve-yavas",
+      "isbn": "9789754340855",
+      "publisher_slug": "varlik-yayinlari",
+      "author_slugs": [
+        "daniel-kahneman"
+      ],
+      "category_slugs": [
+        "kisisel-gelisim"
+      ],
+      "page_count": 624,
+      "publication_date": "2018-01-01",
+      "price": 340,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.5,
+      "demo_review_count": 26,
+      "short_description": "İki düşünme sistemi üzerinden önyargıları ve karar hatalarını anlatan Nobel ödüllü eser.",
+      "description": "Kahneman, hızlı sezgisel ve yavaş analitik düşünme sistemlerini örneklerle ayırır. Kitap, karar alma, önyargı ve risk algısı üzerine temel bir başvuru metnidir.\n\nVarlık Yayınları Türkçe baskısı, davranışsal ekonomi okurları için standart seçimdir."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777715",
+      "title": "Dört Anlaşma",
+      "slug": "dort-anlasma",
+      "isbn": "9786053750017",
+      "publisher_slug": "butik-yayincilik",
+      "author_slugs": [
+        "don-miguel-ruiz"
+      ],
+      "category_slugs": [
+        "kisisel-gelisim"
+      ],
+      "page_count": 160,
+      "publication_date": "2015-01-01",
+      "price": 120,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.3,
+      "demo_review_count": 19,
+      "short_description": "Toltek bilgelikinden esinlenen dört pratik ilkeyle içsel özgürlüğü anlatır.",
+      "description": "Don Miguel Ruiz, kendini yargılamamak, varsayımlardan kaçınmak ve elinden gelenin en iyisini yapmak gibi dört anlaşmayı yaşam pratiğine dönüştürmeyi önerir. Kısa ve erişilebilir bir kişisel dönüşüm metnidir.\n\nButik Yayıncılık Türkçe baskısı, bu alanda sık karşılaşılan bir edisyondur."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777716",
+      "title": "Sokrates'in Savunması",
+      "slug": "sokratesin-savunmasi",
+      "isbn": "9789754587036",
+      "publisher_slug": "is-bankasi-kultur-yayinlari",
+      "author_slugs": [
+        "platon"
+      ],
+      "category_slugs": [
+        "felsefe"
+      ],
+      "page_count": 112,
+      "publication_date": "2016-01-01",
+      "price": 45,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.6,
+      "demo_review_count": 24,
+      "short_description": "Sokrates’in mahkemedeki savunmasını aktaran Platon diyaloğu.",
+      "description": "Platon, Sokrates’in Atina mahkemesindeki savunusunu diyalog biçiminde aktarır. Bilgelik, erdem ve ölüme karşı duruş felsefi düşüncenin temel metinlerinden biridir.\n\nİş Bankası Kültür Yayınları’nın cep boy Türkçe baskısı, felsefeye giriş için uygundur."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777717",
+      "title": "Felsefenin Tesellisi",
+      "slug": "felsefenin-tesellisi",
+      "isbn": "9786053756408",
+      "publisher_slug": "domingo-yayinevi",
+      "author_slugs": [
+        "alain-de-botton"
+      ],
+      "category_slugs": [
+        "felsefe"
+      ],
+      "page_count": 256,
+      "publication_date": "2018-01-01",
+      "price": 195,
+      "original_price": null,
+      "is_featured": true,
+      "badge": "Editör Seçimi",
+      "demo_rating": 4.4,
+      "demo_review_count": 21,
+      "short_description": "Gündelik sorunlara klasik filozoflardan pratik bakışlar sunan popüler felsefe kitabı.",
+      "description": "Alain de Botton, aşk, başarısızlık, öfke ve yalnızlık gibi günlük meseleleri Sokrates’ten Nietzsche’ye uzanan filozoflarla ilişkilendirir. Akademik olmayan, okunabilir bir felsefe girişidir.\n\nDomingo Türkçe baskısı, popüler felsefe kategorisinde bilinen bir başlıktır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777718",
+      "title": "Varoluşçuluk",
+      "slug": "varolusculuk",
+      "isbn": "9786050207262",
+      "publisher_slug": "say-yayinlari",
+      "author_slugs": [
+        "jean-paul-sartre"
+      ],
+      "category_slugs": [
+        "felsefe"
+      ],
+      "page_count": 128,
+      "publication_date": "2015-01-01",
+      "price": 95,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.3,
+      "demo_review_count": 18,
+      "short_description": "Sartre’ın özgürlük, sorumluluk ve kaygı üzerine yoğunlaşan kısa varoluşçu metni.",
+      "description": "Sartre, varoluşçuluğu insanın kendi değerlerini seçme sorumluluğu üzerinden açıklar. Özgürlük, kaygı ve “kötü niyet” kavramları kısa bir çerçevede sunulur.\n\nSay Yayınları Türkçe baskısı, varoluşçuluğa giriş için kompakt bir kaynaktır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777719",
+      "title": "Kendime Düşünceler",
+      "slug": "kendime-dusunceler",
+      "isbn": "9786050205084",
+      "publisher_slug": "say-yayinlari",
+      "author_slugs": [
+        "marcus-aurelius"
+      ],
+      "category_slugs": [
+        "felsefe"
+      ],
+      "page_count": 136,
+      "publication_date": "2022-02-12",
+      "price": 120,
+      "original_price": 200,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.7,
+      "demo_review_count": 28,
+      "short_description": "Roma imparatorunun kendine yazdığı Stoacı notların Türkçe baskısı.",
+      "description": "Marcus Aurelius’un kişisel notları, Stoacı disiplin, ölümlülük ve erdem üzerine kısa pasajlardan oluşur. Günlük yaşamda sakinlik ve ahlaki tutarlılık arayanlar için klasik bir metindir.\n\nSay Yayınları’nın “Kendime Düşünceler” baskısı, Türkçe’de bilinen erişilebilir edisyonlardan biridir."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777720",
+      "title": "Hayvanlardan Tanrılara: Sapiens",
+      "slug": "sapiens",
+      "isbn": "9786055029357",
+      "publisher_slug": "kolektif-kitap",
+      "author_slugs": [
+        "yuval-noah-harari"
+      ],
+      "category_slugs": [
+        "bilim"
+      ],
+      "page_count": 412,
+      "publication_date": "2015-01-01",
+      "price": 357,
+      "original_price": 595,
+      "is_featured": true,
+      "badge": "Çok Satan",
+      "demo_rating": 4.7,
+      "demo_review_count": 52,
+      "short_description": "Homo sapiens’in bilişsel devrimden bugüne uzanan kısa tarihini anlatır.",
+      "description": "Harari, insan türünün mitler, tarım, para ve bilim üzerinden nasıl dünya hâkimiyeti kurduğunu geniş bir çerçevede özetler. Popüler bilim ile tarih anlatısını birleştirir.\n\nKolektif Kitap’ın Türkçe karton kapak baskısı, yayınevinin liste fiyatı üzerinden doğrulanmıştır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777721",
+      "title": "Homo Deus",
+      "slug": "homo-deus",
+      "isbn": "9786055029531",
+      "publisher_slug": "kolektif-kitap",
+      "author_slugs": [
+        "yuval-noah-harari"
+      ],
+      "category_slugs": [
+        "bilim"
+      ],
+      "page_count": 456,
+      "publication_date": "2016-01-01",
+      "price": 360,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.5,
+      "demo_review_count": 30,
+      "short_description": "İnsanlığın geleceği, teknoloji ve yeni tanrılar üzerine Harari’nin devam kitabı.",
+      "description": "Homo Deus, hastalık ve kıtlıkla mücadeleyi aşmış insanlığın bundan sonra mutluluk, ölümsüzlük ve tanrısallık peşine düşebileceğini tartışır. Veri, yapay zeka ve biyoloji kesişiminde spekülatif bir gelecek okumasıdır.\n\nKolektif Kitap Türkçe baskısı, Sapiens okurlarının doğal devamıdır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777722",
+      "title": "Zamanın Kısa Tarihi",
+      "slug": "zamanin-kisa-tarihi",
+      "isbn": "9786051711232",
+      "publisher_slug": "alfa-yayinlari",
+      "author_slugs": [
+        "stephen-hawking"
+      ],
+      "category_slugs": [
+        "bilim"
+      ],
+      "page_count": 256,
+      "publication_date": "2017-01-01",
+      "price": 175,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.4,
+      "demo_review_count": 23,
+      "short_description": "Büyük patlama, kara delikler ve zamanın doğası üzerine popüler bilim klasiği.",
+      "description": "Hawking, evrenin başlangıcı, kara delikler ve zamanın okunu geniş okur için anlaşılır bir dille anlatır. Modern kozmolojinin en bilinen giriş kitaplarından biridir.\n\nAlfa Yayınları Türkçe baskısı, popüler bilim raflarının standart başlıklarındandır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777723",
+      "title": "Kozmos",
+      "slug": "kozmos",
+      "isbn": "9786050202281",
+      "publisher_slug": "alfa-yayinlari",
+      "author_slugs": [
+        "carl-sagan"
+      ],
+      "category_slugs": [
+        "bilim"
+      ],
+      "page_count": 416,
+      "publication_date": "2016-01-01",
+      "price": 250,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.8,
+      "demo_review_count": 35,
+      "short_description": "Evrenin büyüklüğünü ve bilimin merakını anlatan Sagan klasiği.",
+      "description": "Carl Sagan, yıldızlardan insan bilincine uzanan bir yolculukla bilimin şiirsel ve merak uyandıran yüzünü anlatır. Hem astronomi hem bilim kültürü için temel bir metindir.\n\nAlfa Yayınları Türkçe baskısı, Kozmos’un bilinen yerel edisyonlarındandır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777724",
+      "title": "Küçük Prens",
+      "slug": "kucuk-prens",
+      "isbn": "9789750738609",
+      "publisher_slug": "can-yayinlari",
+      "author_slugs": [
+        "antoine-de-saint-exupery"
+      ],
+      "category_slugs": [
+        "cocuk"
+      ],
+      "page_count": 112,
+      "publication_date": "2019-01-01",
+      "price": 80,
+      "original_price": null,
+      "is_featured": true,
+      "badge": "Sana Uygun",
+      "demo_rating": 4.9,
+      "demo_review_count": 50,
+      "short_description": "Çocuklar ve yetişkinler için dostluk, sorumluluk ve bakışı anlatan masalsı klasik.",
+      "description": "Küçük Prens, çölde düşen bir pilot ile küçük bir gezegenden gelen çocuğun buluşmasını anlatır. Görünmeyeni görmek, bağ kurmak ve sorumluluk temaları kısa ve dokunaklı bir üslupla işlenir.\n\nCan Yayınları Türkçe baskısı, hem çocuk hem yetişkin okurda yaygındır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777725",
+      "title": "Şeker Portakalı",
+      "slug": "seker-portakali",
+      "isbn": "9789750734638",
+      "publisher_slug": "can-yayinlari",
+      "author_slugs": [
+        "jose-mauro-de-vasconcelos"
+      ],
+      "category_slugs": [
+        "cocuk"
+      ],
+      "page_count": 200,
+      "publication_date": "2019-01-01",
+      "price": 110,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.6,
+      "demo_review_count": 34,
+      "short_description": "Zezé’nin yoksulluk ve hayal gücüyle büyüdüğü dokunaklı bir çocukluk romanı.",
+      "description": "Brezilyalı yazar Vasconcelos, küçük Zezé’nin ailesi, arkadaşlığı ve şeker portakalı ağacıyla kurduğu bağı anlatır. Çocuk gözünden sertlik ve umut bir aradadır.\n\nCan Yayınları Türkçe baskısı, gençlik edebiyatının en bilinen başlıklarındandır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777726",
+      "title": "Momo",
+      "slug": "momo",
+      "isbn": "9789758240395",
+      "publisher_slug": "kabalci-yayincilik",
+      "author_slugs": [
+        "michael-ende"
+      ],
+      "category_slugs": [
+        "cocuk"
+      ],
+      "page_count": 304,
+      "publication_date": "2015-01-01",
+      "price": 160,
+      "original_price": null,
+      "is_featured": false,
+      "badge": "Yeni",
+      "demo_rating": 4.7,
+      "demo_review_count": 25,
+      "short_description": "Zaman hırsızlarına karşı dinlemenin gücünü anlatan fantastik çocuk klasiği.",
+      "description": "Michael Ende’nin Momo’su, insanlardan zamanı çalan gri adamlara karşı küçük bir kızın mücadelesini anlatır. Dinlemek, oyun ve zamanın anlamı üzerine allegoric bir masaldır.\n\nKabalcı Türkçe baskısı, genç okur için sık önerilen edisyonlardandır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777727",
+      "title": "Simyacı",
+      "slug": "simyaci",
+      "isbn": "9789750726439",
+      "publisher_slug": "can-yayinlari",
+      "author_slugs": [
+        "paulo-coelho"
+      ],
+      "category_slugs": [
+        "dunya-edebiyati"
+      ],
+      "page_count": 184,
+      "publication_date": "2019-01-01",
+      "price": 165,
+      "original_price": 340,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.4,
+      "demo_review_count": 28,
+      "short_description": "Kişisel efsanesinin peşine düşen bir çobanın yolculuğunu anlatan çağdaş klasik.",
+      "description": "Paulo Coelho’nun Simyacı’sı, İspanyol çoban Santiago’nun hazine ve anlam arayışını masalsı bir dille anlatır. Rüyalar, işaretler ve içsel dönüşüm temaları öne çıkar.\n\nCan Yayınları Türkçe baskısı, eserin Türkiye’de en bilinen edisyonudur."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777728",
+      "title": "Yüzüklerin Efendisi: Yüzük Kardeşliği",
+      "slug": "yuzuklerin-efendisi-1",
+      "isbn": "9789753420471",
+      "publisher_slug": "metis-yayinlari",
+      "author_slugs": [
+        "j-r-r-tolkien"
+      ],
+      "category_slugs": [
+        "polisiye-ve-fantastik"
+      ],
+      "page_count": 496,
+      "publication_date": "2012-01-01",
+      "price": 380,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.8,
+      "demo_review_count": 39,
+      "short_description": "Frodo’nun Tek Yüzük’ü yok etmek için çıktığı yolculuğun destansı ilk kısmı.",
+      "description": "Tolkien’in üçlemesinin ilk kitabı, Shire’dan yola çıkan Yüzük Kardeşliği’nin macerasını anlatır. Dostluk, cesaret ve kötülüğe karşı direniş fantastik edebiyatın temel anlatılarından biridir.\n\nMetis Yayınları Türkçe baskısı, eserin Türkiye’deki klasik edisyonudur."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777729",
+      "title": "Doğu Ekspresinde Cinayet",
+      "slug": "dogu-ekspresinde-cinayet",
+      "isbn": "9789752109452",
+      "publisher_slug": "altin-kitaplar",
+      "author_slugs": [
+        "agatha-christie"
+      ],
+      "category_slugs": [
+        "polisiye-ve-fantastik"
+      ],
+      "page_count": 288,
+      "publication_date": "2015-01-01",
+      "price": 150,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.5,
+      "demo_review_count": 32,
+      "short_description": "Hercule Poirot’nun karlı bir trende çözdüğü klasik polisiye bulmaca.",
+      "description": "Doğu Ekspresi’nde işlenen bir cinayet, kapalı mekân polisiyesinin en ünlü örneklerinden birini oluşturur. Poirot, yolcular arasındaki sırları katman katman açar.\n\nAltın Kitaplar Türkçe baskısı, Christie klasiklerinin bilinen yerel edisyonlarındandır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777730",
+      "title": "Tüfek, Mikrop ve Çelik",
+      "slug": "tufek-mikrop-ve-celik",
+      "isbn": "9786050205510",
+      "publisher_slug": "pegasus-yayinlari",
+      "author_slugs": [
+        "jared-diamond"
+      ],
+      "category_slugs": [
+        "tarih"
+      ],
+      "page_count": 624,
+      "publication_date": "2018-01-01",
+      "price": 310,
+      "original_price": null,
+      "is_featured": false,
+      "badge": null,
+      "demo_rating": 4.6,
+      "demo_review_count": 27,
+      "short_description": "Toplumlar arası eşitsizliğin coğrafya ve biyoloji köklerini araştıran Pulitzer ödüllü eser.",
+      "description": "Jared Diamond, bazı toplumların neden teknoloji ve güçte öne çıktığını ırk değil çevre, tarım ve salgın hastalık dinamikleriyle açıklar. Tarih ile bilim arasında köprü kuran bir anlatıdır.\n\nPegasus Yayınları Türkçe baskısı, popüler tarih-bilim kesişiminde bilinen bir başlıktır."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777731",
+      "title": "Türklerin Tarihi",
+      "slug": "turklerin-tarihi",
+      "isbn": "9786050819267",
+      "publisher_slug": "timas-yayinlari",
+      "author_slugs": [
+        "ilber-ortayli"
+      ],
+      "category_slugs": [
+        "tarih"
+      ],
+      "page_count": 320,
+      "publication_date": "2015-03-01",
+      "price": 207,
+      "original_price": 345,
+      "is_featured": false,
+      "badge": "Yeni",
+      "demo_rating": 4.4,
+      "demo_review_count": 20,
+      "short_description": "Orta Asya’dan Avrupa’ya uzanan Türk tarihine İlber Ortaylı’nın sade anlatımı.",
+      "description": "Ortaylı, Türklerin bozkırdan imparatorluklara uzanan tarihini genel okur için anlaşılır bir çerçevede özetler. Göç, devletleşme ve kültür etkileşimleri kitabın omurgasını oluşturur.\n\nTimaş Yayınları baskısı, yazarın bilinen popüler tarih eserlerindendir."
+    },
+    {
+      "id": "77777777-7777-4777-8777-777777777732",
+      "title": "21. Yüzyıl İçin 21 Ders",
+      "slug": "21-yuzyil-icin-21-ders",
+      "isbn": "9786055029890",
+      "publisher_slug": "kolektif-kitap",
+      "author_slugs": [
+        "yuval-noah-harari"
+      ],
+      "category_slugs": [
+        "tarih"
+      ],
+      "page_count": 400,
+      "publication_date": "2018-01-01",
+      "price": 340,
+      "original_price": null,
+      "is_featured": true,
+      "badge": null,
+      "demo_rating": 4.5,
+      "demo_review_count": 29,
+      "short_description": "Teknoloji, siyaset ve kimlik konularında günümüz dünyasına dair kısa dersler.",
+      "description": "Harari, yapay zekâ, milliyetçilik, din ve gerçeklik sonrası dünya gibi başlıklarda kısa deneme-dersler sunar. Sapiens ve Homo Deus’tan sonra bugünün sorularına odaklanır.\n\nKolektif Kitap Türkçe baskısı, güncel toplum okumaları için sık önerilir."
+    }
+  ]
+}

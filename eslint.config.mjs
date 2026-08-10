@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local catalog tooling (CommonJS helpers, not app runtime)
+    "scripts/**",
   ]),
 ]);
 

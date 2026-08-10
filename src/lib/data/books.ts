@@ -229,16 +229,48 @@ export async function getPopularBooks(limit = 4): Promise<Book[]> {
   return takePopular(catalog, limit);
 }
 
+function takeUnique(
+  preferred: Book[],
+  excludeIds: Set<string>,
+  limit: number,
+  fallbackPool: Book[],
+): Book[] {
+  const selected: Book[] = [];
+
+  for (const book of preferred) {
+    if (selected.length >= limit) break;
+    if (excludeIds.has(book.id)) continue;
+    selected.push(book);
+    excludeIds.add(book.id);
+  }
+
+  for (const book of fallbackPool) {
+    if (selected.length >= limit) break;
+    if (excludeIds.has(book.id)) continue;
+    selected.push(book);
+    excludeIds.add(book.id);
+  }
+
+  return selected;
+}
+
 /** Single catalog fetch for homepage sections (avoids duplicate queries). */
 export async function getHomeBookSections(): Promise<HomeBookSections> {
   const catalog = await fetchActiveCatalog();
-  const forYou = catalog.slice(0, 5).map((entry) => entry.book);
+  const allBooks = catalog.map((entry) => entry.book);
+  const usedIds = new Set<string>();
+
+  // Prefer variety across homepage rails with the existing ranking helpers.
+  const forYou = takeUnique(allBooks, usedIds, 5, allBooks);
+  const featured = takeUnique(takeFeatured(catalog, 8), usedIds, 4, allBooks);
+  const popular = takeUnique(takePopular(catalog, 8), usedIds, 4, allBooks);
+  const newest = takeUnique(takeNewest(catalog, 8), usedIds, 4, allBooks);
 
   return {
     forYou,
-    featured: takeFeatured(catalog, 4),
-    popular: takePopular(catalog, 4),
-    newest: takeNewest(catalog, 4),
+    featured,
+    popular,
+    newest,
     hero: forYou.slice(0, 3),
   };
 }
