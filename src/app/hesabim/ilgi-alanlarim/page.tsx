@@ -3,7 +3,7 @@ import { AccountNav } from "@/components/account/AccountNav";
 import { BookGrid } from "@/components/books/BookGrid";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
-import { mockBooks } from "@/lib/mock-books";
+import { getFeaturedBooks } from "@/lib/data/books";
 
 const genres = [
   { label: "Roman", selected: true },
@@ -61,8 +61,6 @@ const bookFormats = [
   { label: "Fark Etmez", selected: false },
 ] as const;
 
-const previewBooks = mockBooks.slice(0, 4);
-
 function PreferenceChip({
   label,
   selected,
@@ -71,18 +69,16 @@ function PreferenceChip({
   selected: boolean;
 }) {
   return (
-    <button
-      type="button"
-      aria-pressed={selected}
+    <span
       className={[
-        "min-h-11 rounded-medium border px-4 py-2.5 text-left text-body-small font-medium transition-colors",
+        "inline-flex min-h-11 items-center rounded-medium border px-4 py-2.5 text-left text-body-small font-medium",
         selected
           ? "border-accent/40 bg-accent-soft text-foreground"
-          : "border-border bg-surface text-muted hover:bg-surface-muted hover:text-foreground",
+          : "border-border bg-surface text-muted",
       ].join(" ")}
     >
       {label}
-    </button>
+    </span>
   );
 }
 
@@ -96,25 +92,23 @@ function SelectableOption({
   selected: boolean;
 }) {
   return (
-    <button
-      type="button"
-      aria-pressed={selected}
+    <span
       className={[
-        "flex h-full min-h-11 flex-col rounded-large border px-4 py-4 text-left transition-colors",
-        selected
-          ? "border-accent/40 bg-accent-soft"
-          : "border-border bg-surface hover:bg-surface-muted",
+        "flex h-full min-h-11 flex-col rounded-large border px-4 py-4 text-left",
+        selected ? "border-accent/40 bg-accent-soft" : "border-border bg-surface",
       ].join(" ")}
     >
       <span className="text-body font-semibold text-foreground">{label}</span>
       {description ? (
         <span className="mt-1.5 text-body-small text-muted">{description}</span>
       ) : null}
-    </button>
+    </span>
   );
 }
 
-export default function InterestsPage() {
+export default async function InterestsPage() {
+  const previewBooks = await getFeaturedBooks(4);
+
   return (
     <div className="bg-background py-8 md:py-12">
       <Container>
@@ -144,9 +138,12 @@ export default function InterestsPage() {
             Kitapix’in sana daha uygun kitaplar önerebilmesi için okuma
             tercihlerini belirle.
           </p>
-          <p className="mt-3 text-body-small text-muted">
-            Bu tercihler ileride AI önerilerini ve kişiselleştirilmiş keşif
-            alanlarını desteklemek için kullanılabilir.
+          <p
+            role="status"
+            className="mt-4 rounded-medium border border-accent/30 bg-accent-soft px-3 py-2 text-body-small text-foreground"
+          >
+            Tercih kaydetme yakında aktif olacak. Aşağıdaki seçimler önizleme
+            amaçlıdır.
           </p>
         </header>
 
@@ -280,11 +277,11 @@ export default function InterestsPage() {
             </section>
 
             <div className="flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
-              <Button type="button" variant="primary" size="md">
-                Tercihlerimi Kaydet
+              <Button type="button" variant="primary" size="md" disabled title="Yakında">
+                Tercihlerimi Kaydet (Yakında)
               </Button>
-              <Button type="button" variant="ghost" size="sm">
-                Seçimleri Sıfırla
+              <Button type="button" variant="ghost" size="sm" disabled title="Yakında">
+                Seçimleri Sıfırla (Yakında)
               </Button>
             </div>
           </div>

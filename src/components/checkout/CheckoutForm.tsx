@@ -330,9 +330,9 @@ export function CheckoutForm({
           </div>
 
           <ul className="mt-6 space-y-2 border-t border-border pt-5 text-caption text-muted">
-            <li>Ödeme entegrasyonu yakında</li>
-            <li>Kolay iade</li>
-            <li>Sipariş takibi</li>
+            <li>Ödeme entegrasyonu henüz aktif değil</li>
+            <li>Sipariş kaydı test/yerel akış için oluşturulabilir</li>
+            <li>Kolay iade ve sipariş takibi yakında</li>
           </ul>
         </div>
       </aside>

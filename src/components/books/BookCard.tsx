@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Button } from "@/components/ui/Button";
 import type { Book } from "@/types/book";
 
 type BookCardProps = {
@@ -27,7 +26,7 @@ export function BookCard({ book }: BookCardProps) {
     <article className="group flex h-full flex-col">
       <Link
         href={bookHref}
-        className="relative block overflow-hidden rounded-large border border-border bg-surface-muted aspect-[2/3] shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
+        className="relative block aspect-[2/3] overflow-hidden rounded-large border border-border bg-surface-muted shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
         aria-label={`${book.title} detayına git`}
       >
         {showCover ? (
@@ -57,7 +56,7 @@ export function BookCard({ book }: BookCardProps) {
         ) : null}
 
         <div className="space-y-1">
-          <h3 className="text-body font-semibold text-foreground line-clamp-2">
+          <h3 className="line-clamp-2 text-body font-semibold text-foreground">
             <Link
               href={bookHref}
               className="hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
@@ -70,7 +69,9 @@ export function BookCard({ book }: BookCardProps) {
 
         {typeof book.rating === "number" ? (
           <p className="text-caption text-muted">
-            <span className="font-medium text-foreground">{book.rating.toFixed(1)}</span>
+            <span className="font-medium text-foreground">
+              {book.rating.toFixed(1)}
+            </span>
             {typeof book.reviewCount === "number" ? (
               <span> · {book.reviewCount} değerlendirme</span>
             ) : null}
@@ -78,32 +79,24 @@ export function BookCard({ book }: BookCardProps) {
         ) : null}
 
         <div className="mt-auto flex items-baseline gap-2 pt-1">
-          <span className="text-body font-semibold text-foreground">{formatPrice(book.price)}</span>
-          {typeof book.originalPrice === "number" && book.originalPrice > book.price ? (
+          <span className="text-body font-semibold text-foreground">
+            {formatPrice(book.price)}
+          </span>
+          {typeof book.originalPrice === "number" &&
+          book.originalPrice > book.price ? (
             <span className="text-body-small text-muted line-through">
               {formatPrice(book.originalPrice)}
             </span>
           ) : null}
         </div>
 
-        <div className="mt-2 flex items-center gap-2">
-          <Button
-            type="button"
-            size="sm"
-            className="flex-1"
-            aria-label={`${book.title} sepete ekle`}
+        <div className="mt-2">
+          <Link
+            href={bookHref}
+            className="inline-flex h-9 w-full items-center justify-center rounded-medium bg-primary px-3 text-body-small font-semibold text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
           >
-            Sepete Ekle
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            size="sm"
-            className="px-3"
-            aria-label={`${book.title} favorilere ekle`}
-          >
-            ♡
-          </Button>
+            İncele
+          </Link>
         </div>
       </div>
     </article>

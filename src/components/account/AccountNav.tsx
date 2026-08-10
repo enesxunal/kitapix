@@ -8,7 +8,7 @@ const accountNavItems = [
   { label: "Adreslerim", href: "/hesabim/adresler" },
   { label: "Ödeme Yöntemlerim", href: "/hesabim/odeme-yontemleri" },
   { label: "İlgi Alanlarım", href: "/hesabim/ilgi-alanlarim" },
-  { label: "Bildirim Ayarları" },
+  { label: "Bildirim Ayarları", soon: true },
 ] as const;
 
 type AccountNavProps = {
@@ -39,8 +39,13 @@ export function AccountNav({ activeHref }: AccountNavProps) {
                   {item.label}
                 </Link>
               ) : (
-                <span className={className} aria-disabled="true">
+                <span
+                  className={`${className} inline-flex items-center gap-2`}
+                  aria-disabled="true"
+                  title="Yakında"
+                >
                   {item.label}
+                  <span className="text-caption font-normal">Yakında</span>
                 </span>
               )}
             </li>

@@ -1,16 +1,24 @@
 import Link from "next/link";
 import { BrandLogo } from "@/components/brand/BrandLogo";
+import {
+  CartIcon,
+  HeartIcon,
+  SearchIcon,
+  SparklesIcon,
+  UserIcon,
+} from "@/components/icons/Icons";
 import { Input } from "@/components/ui/Input";
 import { getCartCount } from "@/lib/data/cart";
 import { createClient } from "@/lib/supabase/server";
 import { Container } from "./Container";
+import { MobileNav } from "./MobileNav";
 
 const navItems = [
   { label: "Keşfet", href: "/kitaplar" },
   { label: "İçerikler", href: "/icerikler" },
-  { label: "Kategoriler" },
-  { label: "Yeni Çıkanlar" },
-  { label: "Çok Satanlar" },
+  { label: "Kategoriler", soon: true },
+  { label: "Yeni Çıkanlar", soon: true },
+  { label: "Çok Satanlar", soon: true },
 ] as const;
 
 export async function Header() {
@@ -43,24 +51,28 @@ export async function Header() {
   }
 
   const utilityItems = [
-    { label: "Favoriler", symbol: "♡", href: "/hesabim/favoriler" },
+    {
+      label: "Favoriler",
+      href: "/hesabim/favoriler",
+      icon: HeartIcon,
+    },
     {
       label: accountLabel,
-      symbol: "○",
       href: accountHref,
       title: accountTitle,
+      icon: UserIcon,
     },
     {
       label: "Sepet",
-      symbol: "◫",
       href: "/sepet",
+      icon: CartIcon,
       count: cartCount > 0 ? cartCount : undefined,
     },
   ] as const;
 
   return (
     <header className="border-b border-border bg-surface">
-      <Container className="flex items-center gap-4 py-4 sm:gap-6">
+      <Container className="flex items-center gap-3 py-3 sm:gap-4 sm:py-4">
         <Link
           href="/"
           className="shrink-0"
@@ -75,24 +87,40 @@ export async function Header() {
           className="hidden min-w-0 flex-1 md:block"
           role="search"
         >
-          <Input
-            id="header-search"
-            type="search"
-            name="q"
-            placeholder="Kitap, yazar veya ne okumak istediğini ara…"
-            aria-label="Kitap ara"
-            className="h-10 border-border bg-accent-soft/60"
-          />
+          <div className="relative">
+            <SearchIcon
+              size={18}
+              className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted"
+            />
+            <Input
+              id="header-search"
+              type="search"
+              name="q"
+              placeholder="Kitap, yazar veya ne okumak istediğini ara…"
+              aria-label="Kitap ara"
+              className="h-10 border-border bg-accent-soft/60 pl-10"
+            />
+          </div>
         </form>
 
         <nav aria-label="Hesap menüsü" className="ml-auto shrink-0 md:ml-0">
-          <ul className="flex items-center gap-2 sm:gap-3">
+          <ul className="flex items-center gap-1 sm:gap-2">
+            <li className="md:hidden">
+              <Link
+                href="/kitaplar"
+                aria-label="Kitap ara"
+                title="Kitap ara"
+                className="inline-flex size-10 items-center justify-center rounded-medium text-foreground transition-colors hover:bg-accent-soft hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
+              >
+                <SearchIcon size={20} />
+              </Link>
+            </li>
             <li>
               <Link
                 href="/ai-asistan"
-                className="inline-flex h-10 items-center gap-1.5 rounded-medium bg-primary px-3 text-body-small font-semibold text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
+                className="inline-flex h-10 items-center gap-1.5 rounded-medium bg-primary px-2.5 text-body-small font-semibold text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 sm:px-3"
               >
-                <span aria-hidden="true">✦</span>
+                <SparklesIcon size={18} className="shrink-0" />
                 <span className="hidden sm:inline">AI Asistan</span>
               </Link>
             </li>
@@ -102,6 +130,7 @@ export async function Header() {
               const count = "count" in item ? item.count : undefined;
               const ariaLabel =
                 count !== undefined ? `${label} (${count})` : label;
+              const Icon = item.icon;
 
               return (
                 <li key={item.label}>
@@ -111,11 +140,9 @@ export async function Header() {
                     title={ariaLabel}
                     className="relative inline-flex size-10 items-center justify-center rounded-medium text-foreground transition-colors hover:bg-accent-soft hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
                   >
-                    <span aria-hidden="true" className="text-body">
-                      {item.symbol}
-                    </span>
+                    <Icon size={20} />
                     {count !== undefined ? (
-                      <span className="absolute -right-0.5 -top-0.5 inline-flex min-w-4 items-center justify-center rounded-small bg-primary px-1 text-[10px] font-semibold leading-4 text-primary-foreground">
+                      <span className="absolute -top-0.5 -right-0.5 inline-flex min-w-4 items-center justify-center rounded-small bg-primary px-1 text-[10px] leading-4 font-semibold text-primary-foreground">
                         {count > 99 ? "99+" : count}
                       </span>
                     ) : null}
@@ -123,11 +150,14 @@ export async function Header() {
                 </li>
               );
             })}
+            <li className="md:hidden">
+              <MobileNav items={navItems} />
+            </li>
           </ul>
         </nav>
       </Container>
 
-      <div className="border-t border-border bg-accent-soft/40">
+      <div className="hidden border-t border-border bg-accent-soft/40 md:block">
         <Container>
           <nav aria-label="Ana menü" className="overflow-x-auto">
             <ul className="flex items-center gap-1 py-2.5">
@@ -141,8 +171,12 @@ export async function Header() {
                       {item.label}
                     </Link>
                   ) : (
-                    <span className="inline-flex rounded-medium px-3 py-1.5 text-body-small font-medium text-muted">
+                    <span
+                      className="inline-flex items-center gap-1.5 rounded-medium px-3 py-1.5 text-body-small font-medium text-muted"
+                      title="Yakında"
+                    >
                       {item.label}
+                      <span className="text-caption font-normal">Yakında</span>
                     </span>
                   )}
                 </li>

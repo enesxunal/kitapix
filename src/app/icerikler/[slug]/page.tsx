@@ -228,11 +228,15 @@ export default async function ArticleDetailPage({
                   placeholder="E-posta adresin"
                   aria-label="E-posta adresin"
                   className="bg-surface"
+                  disabled
                 />
-                <Button type="button" size="lg" className="sm:shrink-0">
-                  Abone Ol
+                <Button type="button" size="lg" className="sm:shrink-0" disabled>
+                  Abone Ol (Yakında)
                 </Button>
               </form>
+              <p className="mt-3 text-caption text-muted">
+                Bülten aboneliği yakında aktif olacak.
+              </p>
             </div>
           </section>
         </article>

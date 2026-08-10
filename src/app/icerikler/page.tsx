@@ -163,15 +163,16 @@ export default async function EditorialPage() {
           aria-label="İçerik kategorileri"
           className="mt-12 border-y border-border py-4 md:mt-14"
         >
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <p className="text-caption text-muted">Kategori filtresi yakında</p>
+          </div>
           <ul className="flex flex-wrap gap-x-5 gap-y-2">
             {categories.map((category, index) => (
               <li key={category}>
                 <span
                   className={[
                     "text-body-small font-medium",
-                    index === 0
-                      ? "text-foreground"
-                      : "text-muted hover:text-foreground",
+                    index === 0 ? "text-foreground" : "text-muted",
                   ].join(" ")}
                 >
                   {category}
@@ -276,11 +277,15 @@ export default async function EditorialPage() {
                 placeholder="E-posta adresin"
                 aria-label="E-posta adresin"
                 className="bg-surface"
+                disabled
               />
-              <Button type="button" size="lg" className="sm:shrink-0">
-                Abone Ol
+              <Button type="button" size="lg" className="sm:shrink-0" disabled>
+                Abone Ol (Yakında)
               </Button>
             </form>
+            <p className="mt-3 text-caption text-muted">
+              Bülten aboneliği yakında aktif olacak.
+            </p>
           </div>
         </section>
       </Container>

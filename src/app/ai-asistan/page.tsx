@@ -79,6 +79,13 @@ export default async function AiAssistantPage() {
             Ruh halini, ilgini, ihtiyacını veya nasıl bir okuma deneyimi aradığını
             yaz; sana uygun kitapları birlikte bulalım.
           </p>
+          <p
+            role="status"
+            className="mt-4 rounded-medium border border-accent/30 bg-accent-soft px-3 py-2 text-body-small text-foreground"
+          >
+            AI Asistan yakında aktif olacak. Şimdilik katalogdan örnek önerileri
+            inceleyebilirsin.
+          </p>
         </header>
 
         <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-10">
@@ -113,17 +120,15 @@ export default async function AiAssistantPage() {
 
             <div className="mt-6">
               <p className="text-body-small font-medium text-foreground">
-                Hızlı öneriler
+                Hızlı öneriler{" "}
+                <span className="font-normal text-muted">(Yakında)</span>
               </p>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {quickPrompts.map((prompt) => (
                   <li key={prompt}>
-                    <button
-                      type="button"
-                      className="rounded-medium border border-border bg-background px-3 py-1.5 text-caption text-muted transition-colors hover:border-accent hover:bg-accent-soft hover:text-primary"
-                    >
+                    <span className="inline-flex rounded-medium border border-border bg-background px-3 py-1.5 text-caption text-muted">
                       {prompt}
-                    </button>
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -137,27 +142,27 @@ export default async function AiAssistantPage() {
                 id="ai-query"
                 name="query"
                 rows={4}
+                disabled
+                aria-disabled="true"
                 placeholder="Örn: Yoğun çalışıyorum, günde 15 dakika okuyabileceğim bir kitap öner."
-                className="w-full resize-y rounded-medium border border-border bg-background px-3 py-3 text-body text-foreground placeholder:text-muted transition-colors focus-visible:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+                className="w-full resize-y rounded-medium border border-border bg-surface-muted px-3 py-3 text-body text-foreground placeholder:text-muted opacity-70"
               />
-              <Button type="button" size="lg" className="w-full sm:w-auto">
-                Kitap Öner
+              <Button type="button" size="lg" className="w-full sm:w-auto" disabled>
+                Kitap Öner (Yakında)
               </Button>
             </div>
 
             <div className="mt-8 border-t border-border pt-6">
               <p className="text-body-small font-medium text-foreground">
-                Öneriyi iyileştir
+                Öneriyi iyileştir{" "}
+                <span className="font-normal text-muted">(Yakında)</span>
               </p>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {refinements.map((item) => (
                   <li key={item}>
-                    <button
-                      type="button"
-                      className="rounded-medium border border-border bg-surface-muted px-3 py-1.5 text-caption text-muted transition-colors hover:border-accent/50 hover:text-primary"
-                    >
+                    <span className="inline-flex rounded-medium border border-border bg-surface-muted px-3 py-1.5 text-caption text-muted">
                       {item}
-                    </button>
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -170,7 +175,8 @@ export default async function AiAssistantPage() {
                 Senin için seçtik
               </h2>
               <p className="mt-2 text-body text-muted">
-                Aradığın okuma deneyimine uygun kitaplar.
+                Katalogdan örnek öneriler. AI aktif olduğunda burası sana özel
+                sonuçlarla dolacak.
               </p>
             </div>
 
@@ -213,16 +219,13 @@ export default async function AiAssistantPage() {
 
                       <p className="mt-3 text-body-small text-muted">{reason}</p>
 
-                      <div className="mt-4 flex flex-wrap gap-2">
+                      <div className="mt-4">
                         <Link
                           href={`/kitap/${book.slug}`}
-                          className="inline-flex h-11 items-center justify-center rounded-medium border border-border bg-surface px-4 text-body-small font-semibold text-foreground transition-colors hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                          className="inline-flex h-11 items-center justify-center rounded-medium bg-primary px-4 text-body-small font-semibold text-primary-foreground transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                         >
                           Kitabı İncele
                         </Link>
-                        <Button type="button" variant="primary" size="md">
-                          Sepete Ekle
-                        </Button>
                       </div>
                     </div>
                   </article>

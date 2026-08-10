@@ -3,10 +3,13 @@ import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Container } from "./Container";
 
 const footerLinks = [
-  { label: "Keşfet" },
-  { label: "Yardım" },
-  { label: "Kurumsal" },
+  { label: "Kitaplar", href: "/kitaplar" },
+  { label: "İçerikler", href: "/icerikler" },
+  { label: "AI Asistan", href: "/ai-asistan" },
+  { label: "Hesabım", href: "/hesabim" },
 ] as const;
+
+const comingSoonLinks = ["Yardım", "Kurumsal"] as const;
 
 export function Footer() {
   return (
@@ -18,8 +21,8 @@ export function Footer() {
               <BrandLogo className="h-7" />
             </Link>
             <p className="text-body-small text-muted">
-              Modern kitap keşif ve e-ticaret platformu. Ne okumak istediğini anlat, sana uygun
-              kitapları bulalım.
+              Modern kitap keşif ve e-ticaret platformu. Ne okumak istediğini anlat,
+              sana uygun kitapları bulalım.
             </p>
           </div>
 
@@ -27,8 +30,22 @@ export function Footer() {
             <ul className="flex flex-wrap gap-x-8 gap-y-3">
               {footerLinks.map((item) => (
                 <li key={item.label}>
-                  <span className="text-body-small font-medium text-muted">
+                  <Link
+                    href={item.href}
+                    className="text-body-small font-medium text-foreground transition-colors hover:text-primary"
+                  >
                     {item.label}
+                  </Link>
+                </li>
+              ))}
+              {comingSoonLinks.map((label) => (
+                <li key={label}>
+                  <span
+                    className="text-body-small font-medium text-muted"
+                    title="Yakında"
+                  >
+                    {label}{" "}
+                    <span className="text-caption font-normal">(Yakında)</span>
                   </span>
                 </li>
               ))}

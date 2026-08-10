@@ -54,12 +54,12 @@ export function LoginForm() {
             <span className="text-body-small text-foreground">Beni hatırla</span>
           </label>
 
-          <button
-            type="button"
-            className="text-body-small font-medium text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-small"
+          <span
+            className="text-body-small text-muted"
+            title="Şifre sıfırlama yakında"
           >
-            Şifremi unuttum
-          </button>
+            Şifre sıfırlama yakında
+          </span>
         </div>
 
         <Button type="submit" size="lg" className="w-full" disabled={pending}>
@@ -76,11 +76,27 @@ export function LoginForm() {
       </div>
 
       <div className="mt-6 space-y-3">
-        <Button type="button" variant="secondary" size="lg" className="w-full">
-          Google ile Devam Et
+        <Button
+          type="button"
+          variant="secondary"
+          size="lg"
+          className="w-full"
+          disabled
+          aria-disabled="true"
+          title="Yakında"
+        >
+          Google ile Devam Et (Yakında)
         </Button>
-        <Button type="button" variant="secondary" size="lg" className="w-full">
-          Apple ile Devam Et
+        <Button
+          type="button"
+          variant="secondary"
+          size="lg"
+          className="w-full"
+          disabled
+          aria-disabled="true"
+          title="Yakında"
+        >
+          Apple ile Devam Et (Yakında)
         </Button>
       </div>
 
@@ -88,7 +104,7 @@ export function LoginForm() {
         Henüz hesabın yok mu?{" "}
         <Link
           href="/kayit"
-          className="font-semibold text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-small"
+          className="rounded-small font-semibold text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           Hesap Oluştur
         </Link>

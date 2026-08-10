@@ -3,40 +3,6 @@ import { AccountNav } from "@/components/account/AccountNav";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 
-type DemoPaymentCard = {
-  id: string;
-  label: string;
-  brand: string;
-  maskedNumber: string;
-  holderName: string;
-  expiry: string;
-  isDefault: boolean;
-};
-
-const paymentCards: DemoPaymentCard[] = [
-  {
-    id: "personal",
-    label: "Kişisel Kart",
-    brand: "Visa",
-    maskedNumber: "**** **** **** 4242",
-    holderName: "Deniz Kaya",
-    expiry: "08/29",
-    isDefault: true,
-  },
-  {
-    id: "other",
-    label: "Diğer Kart",
-    brand: "Mastercard",
-    maskedNumber: "**** **** **** 8814",
-    holderName: "Deniz Kaya",
-    expiry: "03/28",
-    isDefault: false,
-  },
-];
-
-const paymentCardCount = paymentCards.length;
-const showEmptyState = false;
-
 function PaymentMethodsEmptyState() {
   return (
     <section
@@ -47,69 +13,18 @@ function PaymentMethodsEmptyState() {
         id="payment-methods-empty-heading"
         className="text-h3 text-foreground"
       >
-        Henüz kayıtlı ödeme yöntemin yok.
+        Ödeme entegrasyonu henüz aktif değil
       </h2>
       <p className="mx-auto mt-3 max-w-md text-body text-muted">
-        Siparişlerini daha hızlı tamamlamak için bir ödeme yöntemi
-        ekleyebilirsin.
+        Kart kaydetme ve kayıtlı ödeme yöntemleri yakında eklenecek. Sipariş
+        akışında ödeme sağlayıcısı bağlandığında burada görünecek.
       </p>
       <div className="mt-6">
-        <Button type="button" variant="primary" size="md">
-          Kart Ekle
+        <Button type="button" variant="primary" size="md" disabled title="Yakında">
+          Kart Ekle (Yakında)
         </Button>
       </div>
     </section>
-  );
-}
-
-function PaymentCard({ card }: { card: DemoPaymentCard }) {
-  return (
-    <article className="flex h-full flex-col rounded-large border border-border bg-surface p-5 sm:p-6">
-      <div className="flex flex-wrap items-center gap-2">
-        <h3 className="text-body font-semibold text-foreground">
-          {card.label}
-        </h3>
-        {card.isDefault ? (
-          <span className="inline-flex rounded-medium border border-accent/40 bg-accent-soft px-2.5 py-1 text-caption font-medium text-foreground">
-            Varsayılan
-          </span>
-        ) : null}
-      </div>
-
-      <p className="mt-2 text-body-small text-muted">{card.brand}</p>
-
-      <p
-        className="mt-4 font-mono text-body tracking-wide text-foreground"
-        aria-label={`Kart numarası ${card.maskedNumber}`}
-      >
-        {card.maskedNumber}
-      </p>
-
-      <div className="mt-4 space-y-1 text-body-small text-muted">
-        <p>
-          <span className="sr-only">Kart sahibi: </span>
-          <span className="font-medium text-foreground">{card.holderName}</span>
-        </p>
-        <p>
-          <span className="text-muted">Son kullanma: </span>
-          <span className="text-foreground">{card.expiry}</span>
-        </p>
-      </div>
-
-      <div className="mt-auto flex flex-wrap gap-2 pt-5">
-        {!card.isDefault ? (
-          <Button type="button" variant="secondary" size="sm">
-            Varsayılan Yap
-          </Button>
-        ) : null}
-        <Button type="button" variant="secondary" size="sm">
-          Düzenle
-        </Button>
-        <Button type="button" variant="ghost" size="sm">
-          Sil
-        </Button>
-      </div>
-    </article>
   );
 }
 
@@ -141,16 +56,16 @@ export default function PaymentMethodsPage() {
           <div className="max-w-2xl">
             <h1 className="text-h1 text-foreground">Ödeme Yöntemlerim</h1>
             <p className="mt-3 text-body-large text-muted">
-              Kayıtlı ödeme yöntemlerini görüntüle ve sipariş sırasında
-              kullanacağın kartları yönet.
+              Kayıtlı ödeme yöntemleri ödeme entegrasyonu hazır olduğunda burada
+              yönetilecek.
             </p>
           </div>
           <div className="flex flex-col items-start gap-3 sm:items-end">
             <p className="text-body-small font-medium text-muted">
-              {paymentCardCount} kayıtlı kart
+              0 kayıtlı kart
             </p>
-            <Button type="button" variant="primary" size="md">
-              Yeni Kart Ekle
+            <Button type="button" variant="primary" size="md" disabled title="Yakında">
+              Yeni Kart Ekle (Yakında)
             </Button>
           </div>
         </header>
@@ -161,22 +76,7 @@ export default function PaymentMethodsPage() {
           </aside>
 
           <div className="min-w-0 space-y-8">
-            {showEmptyState ? (
-              <PaymentMethodsEmptyState />
-            ) : (
-              <section aria-labelledby="payment-methods-list-heading">
-                <h2 id="payment-methods-list-heading" className="sr-only">
-                  Kayıtlı ödeme yöntemleri
-                </h2>
-                <ul className="grid gap-4 sm:grid-cols-2">
-                  {paymentCards.map((card) => (
-                    <li key={card.id}>
-                      <PaymentCard card={card} />
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
+            <PaymentMethodsEmptyState />
 
             <aside
               aria-labelledby="payment-security-heading"
@@ -189,9 +89,8 @@ export default function PaymentMethodsPage() {
                 Ödeme Güvenliği
               </h2>
               <p className="mt-2 text-body-small text-muted">
-                Kayıtlı ödeme yöntemleri sipariş sürecini hızlandırmak için
-                kullanılabilir. Kart bilgileri ödeme altyapısı üzerinden güvenli
-                şekilde işlenmelidir.
+                Kart bilgileri yalnızca güvenli ödeme altyapısı üzerinden
+                işlenecek. Şu an demo/sahte kart bilgisi gösterilmiyor.
               </p>
             </aside>
           </div>

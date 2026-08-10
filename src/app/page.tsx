@@ -22,14 +22,17 @@ const editorialItems = [
   {
     title: "Yeniden kitap okumaya başlamak için 5 öneri",
     excerpt: "Okuma alışkanlığını nazikçe geri kazanmana yardımcı olacak seçkiler.",
+    href: "/icerikler/yeniden-kitap-okumaya-baslamak",
   },
   {
     title: "Odaklanmayı destekleyen kitaplar",
     excerpt: "Dikkati dağıtmadan ilerlemeyi kolaylaştıran sakin ve net metinler.",
+    href: "/icerikler/odaklanmayi-destekleyen-kitaplar",
   },
   {
-    title: "Bu ay editörün radarında",
-    excerpt: "Editör ekibimizin bu dönemde öne çıkardığı yeni keşifler.",
+    title: "Edebiyatta yapay zekânın yeri",
+    excerpt: "Yaratıcılık, yazarlık ve okur deneyimi arasındaki dengeye kısa bir bakış.",
+    href: "/icerikler/edebiyatta-yapay-zeka",
   },
 ] as const;
 
@@ -57,7 +60,12 @@ export default async function HomePage() {
               Kitapix sana uygun kitapları bulsun.
             </p>
 
-            <form className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-end" role="search">
+            <form
+              action="/kitaplar"
+              method="get"
+              className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-end"
+              role="search"
+            >
               <Input
                 id="hero-search"
                 type="search"
@@ -66,7 +74,7 @@ export default async function HomePage() {
                 aria-label="Bugün nasıl bir kitap arıyorsun?"
                 className="h-12 border-border bg-surface"
               />
-              <Button type="button" size="lg" className="sm:shrink-0">
+              <Button type="submit" size="lg" className="sm:shrink-0">
                 Kitap Bul
               </Button>
             </form>
@@ -183,9 +191,12 @@ export default async function HomePage() {
           <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
             {categories.map((category) => (
               <li key={category}>
-                <span className="flex h-full items-center justify-center rounded-large border border-border bg-accent-soft px-4 py-5 text-center text-body-small font-medium text-primary transition-colors hover:border-accent hover:bg-surface">
+                <Link
+                  href={`/kitaplar?q=${encodeURIComponent(category)}`}
+                  className="flex h-full items-center justify-center rounded-large border border-border bg-accent-soft px-4 py-5 text-center text-body-small font-medium text-primary transition-colors hover:border-accent hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
+                >
                   {category}
-                </span>
+                </Link>
               </li>
             ))}
           </ul>
@@ -212,13 +223,18 @@ export default async function HomePage() {
           />
           <ul className="mt-6 grid gap-6 md:grid-cols-3">
             {editorialItems.map((item) => (
-              <li
-                key={item.title}
-                className="rounded-large border border-border bg-surface px-5 py-6"
-              >
-                <div className="mb-4 h-1.5 w-10 rounded-full bg-accent" aria-hidden="true" />
-                <h3 className="text-h3 text-foreground">{item.title}</h3>
-                <p className="mt-2 text-body-small text-muted">{item.excerpt}</p>
+              <li key={item.title}>
+                <Link
+                  href={item.href}
+                  className="block h-full rounded-large border border-border bg-surface px-5 py-6 transition-colors hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
+                >
+                  <div
+                    className="mb-4 h-1.5 w-10 rounded-full bg-accent"
+                    aria-hidden="true"
+                  />
+                  <h3 className="text-h3 text-foreground">{item.title}</h3>
+                  <p className="mt-2 text-body-small text-muted">{item.excerpt}</p>
+                </Link>
               </li>
             ))}
           </ul>
