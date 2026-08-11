@@ -647,6 +647,13 @@ export type Database = {
         Args: { p_address_id: string; p_shipping_method: string }
         Returns: Json
       }
+      get_bestselling_books: {
+        Args: { p_limit?: number }
+        Returns: {
+          book_id: string
+          units_sold: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

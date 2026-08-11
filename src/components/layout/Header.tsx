@@ -16,9 +16,9 @@ import { MobileNav } from "./MobileNav";
 const navItems = [
   { label: "Keşfet", href: "/kitaplar" },
   { label: "İçerikler", href: "/icerikler" },
-  { label: "Kategoriler", soon: true },
-  { label: "Yeni Çıkanlar", soon: true },
-  { label: "Çok Satanlar", soon: true },
+  { label: "Kategoriler", href: "/kategoriler" },
+  { label: "Yeni Çıkanlar", href: "/yeni-cikanlar" },
+  { label: "Çok Satanlar", href: "/cok-satanlar" },
 ] as const;
 
 export async function Header() {
@@ -163,22 +163,12 @@ export async function Header() {
             <ul className="flex items-center gap-1 py-2.5">
               {navItems.map((item) => (
                 <li key={item.label} className="shrink-0">
-                  {"href" in item ? (
-                    <Link
-                      href={item.href}
-                      className="inline-flex rounded-medium px-3 py-1.5 text-body-small font-medium text-primary transition-colors hover:bg-surface hover:text-primary-hover"
-                    >
-                      {item.label}
-                    </Link>
-                  ) : (
-                    <span
-                      className="inline-flex items-center gap-1.5 rounded-medium px-3 py-1.5 text-body-small font-medium text-muted"
-                      title="Yakında"
-                    >
-                      {item.label}
-                      <span className="text-caption font-normal">Yakında</span>
-                    </span>
-                  )}
+                  <Link
+                    href={item.href}
+                    className="inline-flex rounded-medium px-3 py-1.5 text-body-small font-medium text-primary transition-colors hover:bg-surface hover:text-primary-hover"
+                  >
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>

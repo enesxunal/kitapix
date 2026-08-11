@@ -4,6 +4,9 @@ import { Container } from "./Container";
 
 const footerLinks = [
   { label: "Kitaplar", href: "/kitaplar" },
+  { label: "Kategoriler", href: "/kategoriler" },
+  { label: "Çok Satanlar", href: "/cok-satanlar" },
+  { label: "Yeni Çıkanlar", href: "/yeni-cikanlar" },
   { label: "İçerikler", href: "/icerikler" },
   { label: "AI Asistan", href: "/ai-asistan" },
   { label: "Hesabım", href: "/hesabim" },

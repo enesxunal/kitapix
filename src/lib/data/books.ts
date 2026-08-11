@@ -188,22 +188,14 @@ function takeFeatured(entries: CatalogEntry[], limit: number): Book[] {
 
 function takeNewest(entries: CatalogEntry[], limit: number): Book[] {
   return [...entries]
+    .filter((entry) => Boolean(entry.publicationDate))
     .sort((a, b) => {
-      const aDate = a.publicationDate ?? a.createdAt;
-      const bDate = b.publicationDate ?? b.createdAt;
-      return bDate.localeCompare(aDate);
-    })
-    .slice(0, limit)
-    .map((entry) => entry.book);
-}
-
-function takePopular(entries: CatalogEntry[], limit: number): Book[] {
-  return [...entries]
-    .sort((a, b) => {
-      if (b.rating !== a.rating) {
-        return b.rating - a.rating;
+      const aDate = a.publicationDate!;
+      const bDate = b.publicationDate!;
+      if (bDate !== aDate) {
+        return bDate.localeCompare(aDate);
       }
-      return b.reviewCount - a.reviewCount;
+      return b.createdAt.localeCompare(a.createdAt);
     })
     .slice(0, limit)
     .map((entry) => entry.book);
@@ -224,9 +216,37 @@ export async function getNewestBooks(limit = 4): Promise<Book[]> {
   return takeNewest(catalog, limit);
 }
 
+export async function getNewestBooksPage(options?: {
+  limit?: number;
+  offset?: number;
+}): Promise<{ books: Book[]; total: number }> {
+  const supabase = await createClient();
+  const limit = options?.limit ?? 24;
+  const offset = options?.offset ?? 0;
+
+  const { data, error, count } = await supabase
+    .from("books")
+    .select(BOOK_LIST_SELECT, { count: "exact" })
+    .eq("is_active", true)
+    .not("publication_date", "is", null)
+    .order("publication_date", { ascending: false })
+    .order("created_at", { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (error) {
+    throwQueryError("newest books");
+  }
+
+  return {
+    books: ((data ?? []) as BookListRow[]).map(mapBook),
+    total: count ?? 0,
+  };
+}
+
 export async function getPopularBooks(limit = 4): Promise<Book[]> {
-  const catalog = await fetchActiveCatalog();
-  return takePopular(catalog, limit);
+  const { getBestsellers } = await import("@/lib/data/bestsellers");
+  const { books } = await getBestsellers(limit);
+  return books;
 }
 
 function takeUnique(
@@ -256,14 +276,17 @@ function takeUnique(
 
 /** Single catalog fetch for homepage sections (avoids duplicate queries). */
 export async function getHomeBookSections(): Promise<HomeBookSections> {
-  const catalog = await fetchActiveCatalog();
+  const [{ getBestsellers }, catalog] = await Promise.all([
+    import("@/lib/data/bestsellers"),
+    fetchActiveCatalog(),
+  ]);
   const allBooks = catalog.map((entry) => entry.book);
   const usedIds = new Set<string>();
 
-  // Prefer variety across homepage rails with the existing ranking helpers.
+  const { books: bestsellerBooks } = await getBestsellers(8);
   const forYou = takeUnique(allBooks, usedIds, 5, allBooks);
   const featured = takeUnique(takeFeatured(catalog, 8), usedIds, 4, allBooks);
-  const popular = takeUnique(takePopular(catalog, 8), usedIds, 4, allBooks);
+  const popular = takeUnique(bestsellerBooks, usedIds, 4, []);
   const newest = takeUnique(takeNewest(catalog, 8), usedIds, 4, allBooks);
 
   return {

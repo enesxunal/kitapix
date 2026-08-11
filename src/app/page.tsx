@@ -1,22 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BookGrid } from "@/components/books/BookGrid";
+import { DiscoveryEmptyState } from "@/components/discovery/DiscoveryEmptyState";
 import { SectionHeader } from "@/components/home/SectionHeader";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Container } from "@/components/layout/Container";
 import { getHomeBookSections } from "@/lib/data/books";
-
-const categories = [
-  "Roman",
-  "Psikoloji",
-  "Kişisel Gelişim",
-  "Bilim",
-  "Çocuk",
-  "Tarih",
-  "Felsefe",
-  "İş Dünyası",
-] as const;
+import { getCategories } from "@/lib/data/categories";
 
 const editorialItems = [
   {
@@ -37,7 +28,8 @@ const editorialItems = [
 ] as const;
 
 export default async function HomePage() {
-  const { forYou, featured, popular, newest, hero } = await getHomeBookSections();
+  const [{ forYou, featured, popular, newest, hero }, categories] =
+    await Promise.all([getHomeBookSections(), getCategories()]);
 
   return (
     <div>
@@ -84,7 +76,10 @@ export default async function HomePage() {
             </p>
           </div>
 
-          <div className="relative mx-auto flex h-[280px] w-full max-w-md items-end justify-center sm:h-[340px] lg:mx-0 lg:max-w-none" aria-hidden="true">
+          <div
+            className="relative mx-auto flex h-[280px] w-full max-w-md items-end justify-center sm:h-[340px] lg:mx-0 lg:max-w-none"
+            aria-hidden="true"
+          >
             <div className="absolute inset-x-8 bottom-0 h-24 rounded-full bg-accent/20 blur-2xl" />
             {hero.map((book, index) => {
               const offsets = [
@@ -153,12 +148,15 @@ export default async function HomePage() {
             <p className="text-caption font-semibold tracking-wide text-accent uppercase">
               Kitapix AI
             </p>
-            <h2 id="section-ai-kesif" className="mt-2 text-h2 text-primary-foreground">
+            <h2
+              id="section-ai-kesif"
+              className="mt-2 text-h2 text-primary-foreground"
+            >
               Ne okuyacağını bilmiyor musun?
             </h2>
             <p className="mt-3 text-body text-primary-foreground/80">
-              Kitapix AI’a ne hissettiğini veya ne aradığını anlat. Sana uygun kitapları
-              birlikte bulalım.
+              Kitapix AI’a ne hissettiğini veya ne aradığını anlat. Sana uygun
+              kitapları birlikte bulalım.
             </p>
             <div className="mt-6">
               <Link
@@ -175,11 +173,21 @@ export default async function HomePage() {
           <SectionHeader
             id="section-cok-satanlar"
             title="Çok Satanlar"
-            linkHref="/kitaplar"
+            description="Ödeme alınmış siparişlere göre gerçek satış sıralaması."
+            linkHref="/cok-satanlar"
             linkLabel="Tümünü Gör"
           />
           <div className="mt-6">
-            <BookGrid books={popular} className="xl:grid-cols-4" />
+            {popular.length > 0 ? (
+              <BookGrid books={popular} className="xl:grid-cols-4" />
+            ) : (
+              <DiscoveryEmptyState
+                title="Henüz yeterli satış verisi yok"
+                description="Çok satan listesi yalnızca gerçek ödeme alınmış siparişlerden oluşur."
+                actionHref="/cok-satanlar"
+                actionLabel="Çok Satanlar sayfası"
+              />
+            )}
           </div>
         </section>
 
@@ -187,30 +195,57 @@ export default async function HomePage() {
           <SectionHeader
             id="section-kategoriler"
             title="Kategorilere Göre Keşfet"
+            linkHref="/kategoriler"
+            linkLabel="Tümünü Gör"
           />
-          <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-            {categories.map((category) => (
-              <li key={category}>
-                <Link
-                  href={`/kitaplar?q=${encodeURIComponent(category)}`}
-                  className="flex h-full items-center justify-center rounded-large border border-border bg-accent-soft px-4 py-5 text-center text-body-small font-medium text-primary transition-colors hover:border-accent hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
-                >
-                  {category}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {categories.length > 0 ? (
+            <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+              {categories.map((category) => (
+                <li key={category.id}>
+                  <Link
+                    href={`/kategori/${category.slug}`}
+                    className="flex h-full flex-col items-center justify-center rounded-large border border-border bg-accent-soft px-4 py-5 text-center transition-colors hover:border-accent hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2"
+                  >
+                    <span className="text-body-small font-medium text-primary">
+                      {category.name}
+                    </span>
+                    <span className="mt-1 text-caption text-muted">
+                      {category.bookCount} kitap
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="mt-6">
+              <DiscoveryEmptyState
+                title="Kategori bulunamadı"
+                description="Aktif kategori yok."
+                actionHref="/kitaplar"
+              />
+            </div>
+          )}
         </section>
 
         <section aria-labelledby="section-yeni-cikanlar">
           <SectionHeader
             id="section-yeni-cikanlar"
             title="Yeni Çıkanlar"
-            linkHref="/kitaplar"
+            description="Yayın tarihine göre sıralanan kitaplar."
+            linkHref="/yeni-cikanlar"
             linkLabel="Tümünü Gör"
           />
           <div className="mt-6">
-            <BookGrid books={newest} className="xl:grid-cols-4" />
+            {newest.length > 0 ? (
+              <BookGrid books={newest} className="xl:grid-cols-4" />
+            ) : (
+              <DiscoveryEmptyState
+                title="Yeni çıkan kitap yok"
+                description="Yayın tarihi dolu aktif kitap bulunamadı."
+                actionHref="/yeni-cikanlar"
+                actionLabel="Yeni Çıkanlar sayfası"
+              />
+            )}
           </div>
         </section>
 
