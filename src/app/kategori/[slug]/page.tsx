@@ -11,24 +11,16 @@ import {
 import { Container } from "@/components/layout/Container";
 import {
   getBooksByCategorySlug,
-  getCategories,
   getCategoryBySlug,
 } from "@/lib/data/categories";
 import { pageMetadata } from "@/lib/seo";
+
+export const dynamic = "force-dynamic";
 
 type CategoryPageProps = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ page?: string }>;
 };
-
-export async function generateStaticParams() {
-  try {
-    const categories = await getCategories();
-    return categories.map((category) => ({ slug: category.slug }));
-  } catch {
-    return [];
-  }
-}
 
 export async function generateMetadata({
   params,
