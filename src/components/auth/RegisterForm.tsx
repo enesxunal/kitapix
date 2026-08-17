@@ -94,7 +94,22 @@ export function RegisterForm() {
             required
           />
           <span className="text-body-small text-foreground">
-            Kullanım koşullarını ve gizlilik politikasını kabul ediyorum.
+            <Link
+              href="/kullanim-kosullari"
+              target="_blank"
+              className="font-medium text-primary underline underline-offset-2"
+            >
+              Kullanım Koşulları
+            </Link>
+            ’nı ve{" "}
+            <Link
+              href="/gizlilik-guvenlik"
+              target="_blank"
+              className="font-medium text-primary underline underline-offset-2"
+            >
+              Gizlilik Politikası
+            </Link>
+            ’nı kabul ediyorum.
           </span>
         </label>
 

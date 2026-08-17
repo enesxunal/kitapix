@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useActionState, useState } from "react";
+import { PaymentMethods } from "@/components/checkout/PaymentMethods";
 import { Button } from "@/components/ui/Button";
 import {
   placeOrder,
@@ -319,6 +320,37 @@ export function CheckoutForm({
           ) : null}
 
           <div className="mt-6">
+            <PaymentMethods />
+          </div>
+
+          <label className="mt-5 flex items-start gap-3 text-caption text-muted">
+            <input
+              type="checkbox"
+              name="legal_acceptance"
+              required
+              className="mt-0.5 size-4 shrink-0 accent-primary"
+            />
+            <span>
+              <Link
+                href="/mesafeli-satis-sozlesmesi"
+                target="_blank"
+                className="font-medium text-primary underline underline-offset-2"
+              >
+                Mesafeli Satış Sözleşmesi
+              </Link>
+              ’ni ve{" "}
+              <Link
+                href="/iptal-iade"
+                target="_blank"
+                className="font-medium text-primary underline underline-offset-2"
+              >
+                İptal ve İade Koşulları
+              </Link>
+              ’nı okudum ve kabul ediyorum.
+            </span>
+          </label>
+
+          <div className="mt-5">
             <Button
               type="submit"
               size="lg"
@@ -330,9 +362,9 @@ export function CheckoutForm({
           </div>
 
           <ul className="mt-6 space-y-2 border-t border-border pt-5 text-caption text-muted">
-            <li>Ödeme entegrasyonu henüz aktif değil</li>
-            <li>Sipariş kaydı test/yerel akış için oluşturulabilir</li>
-            <li>Kolay iade ve sipariş takibi yakında</li>
+            <li>SSL ile korunan güvenli işlem</li>
+            <li>Kişisel ve kart bilgileri koruma altındadır</li>
+            <li>14 gün içinde cayma hakkı</li>
           </ul>
         </div>
       </aside>
